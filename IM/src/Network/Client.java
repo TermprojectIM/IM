@@ -5,7 +5,7 @@ import java.io.OutputStream;
 import java.net.*;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
-//
+
 public class Client {
 	Socket socket;
 	public Client(Socket socket) {
