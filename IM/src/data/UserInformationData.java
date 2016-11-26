@@ -1,7 +1,7 @@
 package data;
 
 import type.Rank;
-
+//
 public class UserInformationData {
 	private String id=null,pw=null;
 	private String name=null,phone=null;

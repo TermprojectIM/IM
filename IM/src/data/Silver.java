@@ -8,3 +8,4 @@ public class Silver extends Bronze {
 		super(level);
 	}
 }
+//
