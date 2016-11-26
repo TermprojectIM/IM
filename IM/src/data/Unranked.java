@@ -2,6 +2,7 @@ package data;
 
 public class Unranked {
 	private int level = 0;
+	private int sales = 0;
 	
 	public Unranked() {
 		this.level = 1;
