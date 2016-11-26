@@ -17,12 +17,12 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import data.Info;
-//import main.Main;
+import main.Main;
 import view.panel.PanImgload;
 
 public class frmSelfmake extends JFrame {
 	private JLayeredPane layeredPane = new JLayeredPane();
-	//Main main;
+	Main main;
 	JTable make;
 	JTextField period, time, name;
 	JButton btnAdd, btnDel, btnMkc;
@@ -31,7 +31,7 @@ public class frmSelfmake extends JFrame {
 
 	public frmSelfmake(String day) {
 
-		// ´çÀÏ ¿©Çà
+		// ë‹¹ì¼ ì—¬í–‰
 		setTitle(day);
 		setSize(600, 600);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -43,7 +43,7 @@ public class frmSelfmake extends JFrame {
 		JPanel backGround = new PanImgload("img/selfmake.png");
 		setPanel(backGround).setBounds(0, 0, 600, 600);
 
-		// ¿©±â¼­ºÎÅÍ ÅØ½ºÆ®ÇÊµåÀÔ´Ï´Ù.
+		// ì—¬ê¸°ì„œë¶€í„° í…ìŠ¤íŠ¸í•„ë“œì…ë‹ˆë‹¤.
 		period = new JTextField(15);
 		time = new JTextField(15);
 		name = new JTextField(15);
@@ -54,13 +54,13 @@ public class frmSelfmake extends JFrame {
 		name.setBounds(60, 281, 200, 29);
 		name.setBorder(null);
 
-		// ¿©±â¼­ºÎÅÍ Å×ÀÌºíÀÔ´Ï´Ù.
-		String attribute[] = { "³¯Â¥", "½Ã°£", "Àå¼Ò" };
+		// ì—¬ê¸°ì„œë¶€í„° í…Œì´ë¸”ì…ë‹ˆë‹¤.
+		String attribute[] = { "ë‚ ì§œ", "ì‹œê°„", "ì¥ì†Œ" };
 		model = new DefaultTableModel(attribute, 0);
 		make = new JTable(model);
 		scrollpane = new JScrollPane(make);
 		scrollpane.setBounds(330, 170, 230, 230);
-		// ¿©±â¼­ºÎÅÍ ¹öÆ° ÀÌº¥Æ® ÀÔ´Ï´Ù.
+		// ì—¬ê¸°ì„œë¶€í„° ë²„íŠ¼ ì´ë²¤íŠ¸ ì…ë‹ˆë‹¤.
 		btnAdd = new JButton();
 		btnDel = new JButton();
 		btnMkc = new JButton();
@@ -72,14 +72,14 @@ public class frmSelfmake extends JFrame {
 		btnBlind(btnMkc);
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Ãß°¡ ¼±ÅÃµÊ");
+				System.out.println("ì¶”ê°€ ì„ íƒë¨");
 				String d = period.getText();
 				period.setText("");
 				String t = time.getText();
 				time.setText("");
 				String n = name.getText();
 				name.setText("");
-				// ±âº» Ã³¸® ³¡ ¸¶Ä£ ÈÄ¿¡
+				// ê¸°ë³¸ ì²˜ë¦¬ ë ë§ˆì¹œ í›„ì—
 				Object data[] = { d, t, n };
 				DefaultTableModel model = (DefaultTableModel) make.getModel();
 				model.addRow(data);
@@ -88,7 +88,7 @@ public class frmSelfmake extends JFrame {
 
 		btnDel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("»èÁ¦ ¼±ÅÃµÊ");
+				System.out.println("ì‚­ì œ ì„ íƒë¨");
 				DefaultTableModel model = (DefaultTableModel) make.getModel();
 				model.removeRow(make.getSelectedRow());
 			}
@@ -96,17 +96,18 @@ public class frmSelfmake extends JFrame {
 
 		btnMkc.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Â÷Æ® ¼±ÅÃµÊ");
-				System.out.println("Å×ÀÌºí¿¡" + make.getRowCount() + "°³ÀÇ ·¹ÄÚµå°¡ Á¸ÀçÇÕ´Ï´Ù");
-				// ¿©±â¼­ ³Ñ°ÜÁÖ¸éµË´Ï´Ù
-
+				System.out.println("ì°¨íŠ¸ ì„ íƒë¨");
+				System.out.println("í…Œì´ë¸”ì—" + make.getRowCount() + "ê°œì˜ ë ˆì½”ë“œê°€ ì¡´ì¬í•©ë‹ˆë‹¤");
+				// ì—¬ê¸°ì„œ ë„˜ê²¨ì£¼ë©´ë©ë‹ˆë‹¤
 				Info[] data = new Info[model.getRowCount()];
-				
+
 				for (int i = 0; i < model.getRowCount(); i++) {
-					data[i] = new Info((String)model.getValueAt(i, 0), (String)model.getValueAt(i, 1), (String)model.getValueAt(i, 2));
+					data[i] = new Info((String) model.getValueAt(i, 0), (String) model.getValueAt(i, 1),
+							(String) model.getValueAt(i, 2));
 				}
-				
-				frmMakeChart fmc = new frmMakeChart(data);
+
+				frmMakeChart fmc = new frmMakeChart(data, day);
+				// ê°ì²´ì„ ì–¸í•˜ê³  ë­ í•˜ì‹œë©´ë©ë‹ˆë‹¤.
 			}
 		});
 
@@ -134,8 +135,7 @@ public class frmSelfmake extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		String day = "´çÀÏ ¿©Çà";
-		new frmSelfmake(day);
+		frmSelfmake fsm = new frmSelfmake("2ë°• 3ì¼");
 	}
 
 }

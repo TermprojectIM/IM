@@ -1,93 +1,16 @@
 package view;
-//
-
-//import java.awt.BorderLayout;
-//import java.awt.EventQueue;
-//
-//import javax.swing.JFrame;
-//import javax.swing.JPanel;
-//import javax.swing.border.EmptyBorder;
-//
-//import org.jfree.chart.ChartPanel;
-//import org.jfree.chart.JFreeChart;
-//import org.jfree.chart.axis.NumberAxis;
-//import org.jfree.chart.axis.SymbolAxis;
-//import org.jfree.chart.plot.PlotOrientation;
-//import org.jfree.chart.plot.XYPlot;
-//import org.jfree.chart.renderer.xy.XYBarRenderer;
-//import org.jfree.data.xy.XYIntervalSeries;
-//import org.jfree.data.xy.XYIntervalSeriesCollection;
-//
-//import data.Info;
-//
-//public class frmMakeChart extends JFrame {
-//	private JPanel contentPane;
-//	
-//	private int spots;
-//	private XYIntervalSeries[] series;
-//	private ChartPanel chartPanel;
-//	private XYBarRenderer renderer;
-//	private XYPlot plot;
-//	private JFreeChart chart;
-//	private XYIntervalSeriesCollection dataset;
-//	private String[] spotName;
-//	
-//	public frmMakeChart(Info data[]) {
-//		spots = data.length;
-//	
-//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		setBounds(100, 100, 606, 560);
-//		contentPane = new JPanel();
-//		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-//		setContentPane(contentPane);
-//		contentPane.setLayout(null);
-//		setVisible(true);
-//		
-//		series = new XYIntervalSeries[spots];
-//		dataset = new XYIntervalSeriesCollection();
-//		String[] list = { "" };
-//		spotName = new String[spots];
-//		
-//		for (int i = 0; i < spots; i++) {
-//			spotName[i] = data[i].name;
-//		}
-//
-//		for (int i = 0; i < spots; i++) {
-//			series[i] = new XYIntervalSeries(spotName[i]);
-//			dataset.addSeries(series[i]);
-//		}
-//
-//		for (int i = 0; i < spots; i++) {
-//			String split[] = data[i].time.split("-");
-//			int start = Integer.parseInt(split[0]);
-//			int end = Integer.parseInt(split[1]);
-//			plusChart(i, start, end);
-//		}
-//		
-//		renderer = new XYBarRenderer();
-//		renderer.setUseYInterval(true);
-//		plot = new XYPlot(dataset, new SymbolAxis("", list), new NumberAxis(), renderer);
-//		plot.setOrientation(PlotOrientation.HORIZONTAL);
-//		
-//		chart = new JFreeChart(plot);
-//		chartPanel = new ChartPanel(chart);
-//		chartPanel.setBounds(27, 332, 525, 157);
-//		
-//		
-//		
-//		contentPane.add(chartPanel);
-//	}
-//
-//	public void plusChart(int ID, int start, int end) {
-//		series[ID].add(0, -0.3, 0.3, (start+end)/2, start, end);
-//	}
-//}
 
 import java.awt.Font;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.axis.SymbolAxis;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYBarRenderer;
+import org.jfree.data.xy.XYIntervalSeries;
+import org.jfree.data.xy.XYIntervalSeriesCollection;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -95,59 +18,286 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PiePlot;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
 
 import data.Info;
-import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import java.awt.Color;
+import javax.swing.JTextField;
+import javax.swing.JTextArea;
+import javax.swing.JTextPane;
+import java.awt.TextArea;
 
 public class frmMakeChart extends JFrame {
 
-	public frmMakeChart(Info data[]) {
-		// super(title);
+	public frmMakeChart(Info data[], String day) {
 		setVisible(true);
 		setBounds(100, 100, 800, 1000);
 		getContentPane().setLayout(null);
 
-		int reTime = 0;
-		int start1, start2, start3;
-		int end1, end2, end3;
-		int temp1, temp2, temp3;
-		DefaultPieDataset dataset = new DefaultPieDataset();
 		int size = data.length;
-		for (int i = 0; i < size; i++) {
-			if (i == 0) {
-				String split[] = data[i].time.split("-");
-				int start = Integer.parseInt(split[0]);
-				int end = Integer.parseInt(split[1]);
-				int temp = end - start;
-				reTime += (start + temp);
-				dataset.setValue("X", start);
-				dataset.setValue(data[i].name, temp);
+		int countDay = 0;
+
+		int d1 = 0, d2 = 0, d3 = 0;
+		for (int i = 0; i < size - 1; i++) {
+			if (countDay == 0) {
+				d1++;
+			} else if (countDay == 1) {
+				d2++;
+			} else if (countDay == 2) {
+				d3++;
 			}
-			else{
-				String split[] = data[i].time.split("-");
-				int start = Integer.parseInt(split[0]);
-				int end = Integer.parseInt(split[1]);
-				int temp = end - start;
-				reTime += (start + temp);
+			if (data[i].day != data[i + 1].day) {
+				countDay++;
 			}
 		}
+		if (countDay == 0) {
+			d1++;
+		} else if (countDay == 1) {
+			d2++;
+		} else if (countDay == 2) {
+			d3++;
+		}
 
-		JFreeChart chart = createChart(dataset);
-		ChartPanel chartPanel = new ChartPanel(chart);
-		chartPanel.setBounds(0, 0, 300, 300);
-		getContentPane().add(chartPanel);
+		Info[] data1 = new Info[d1];
+		Info[] data2 = new Info[d2];
+		Info[] data3 = new Info[d3];
+
+		countDay = 0;
+		d1 = 0; d2 = 0; d3 = 0;
+		for (int i = 0; i < size - 1; i++) {
+			if (countDay == 0) {
+				data1[d1] = data[i];
+				d1++;
+			} else if (countDay == 1) {
+				data2[d2] = data[i];
+				d2++;
+			} else if (countDay == 2) {
+				data3[d3] = data[i];
+				d3++;
+			}
+
+			if (data[i].day != data[i + 1].day) {
+				countDay++;
+			}
+		}
+		if (countDay == 0) {
+			data1[d1] = data[size-1];
+		} else if (countDay == 1) {
+			data2[d2] = data[size-1];
+		} else if (countDay == 2) {
+			data3[d3] = data[size-1];
+		}
+
+		if (day == "당일 여행") {
+			setTitle("SELF - 당일 여행");
+			// rabel
+			JLabel lblNewLabel = new JLabel(day);
+			lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			lblNewLabel.setFont(new Font("함초롬돋움", Font.PLAIN, 50));
+			lblNewLabel.setBounds(245, 15, 300, 60);
+			getContentPane().add(lblNewLabel);
+			// ganttChart
+			XYIntervalSeriesCollection ganntDataset = creatGannt(data1);
+			JFreeChart ganntChart = creatGanntChart(ganntDataset);
+			ChartPanel ganntChartPanel = new ChartPanel(ganntChart);
+			ganntChartPanel.setBounds(230, 100, 520, 200);
+			getContentPane().add(ganntChartPanel);
+			// pieChart
+			DefaultPieDataset piDataset = creatPi(data1);
+			JFreeChart piChart = createPieChart(piDataset);
+			ChartPanel piChartPanel = new ChartPanel(piChart);
+			piChartPanel.setBounds(30, 100, 200, 200);
+			getContentPane().add(piChartPanel);
+			// Text
+			TextArea textArea = new TextArea();
+			textArea.setBounds(230, 300, 520, 100);
+			getContentPane().add(textArea);
+
+			setBounds(100, 100, 800, 500);
+		} else if (day == "1박 2일") {
+			// rabel
+			JLabel lblNewLabel1 = new JLabel(day);
+			lblNewLabel1.setHorizontalAlignment(SwingConstants.CENTER);
+			lblNewLabel1.setFont(new Font("함초롬돋움", Font.PLAIN, 50));
+			lblNewLabel1.setBounds(245, 15, 300, 60);
+			getContentPane().add(lblNewLabel1);
+			// ganttChart
+			XYIntervalSeriesCollection ganntDataset1 = creatGannt(data1);
+			JFreeChart ganntChart1 = creatGanntChart(ganntDataset1);
+			ChartPanel ganntChartPanel1 = new ChartPanel(ganntChart1);
+			ganntChartPanel1.setBounds(230, 100, 520, 200);
+			getContentPane().add(ganntChartPanel1);
+			// pieChart
+			DefaultPieDataset piDataset1 = creatPi(data1);
+			JFreeChart piChart1 = createPieChart(piDataset1);
+			ChartPanel piChartPanel1 = new ChartPanel(piChart1);
+			piChartPanel1.setBounds(30, 100, 200, 200);
+			getContentPane().add(piChartPanel1);
+			// Text
+			TextArea textArea1 = new TextArea();
+			textArea1.setBounds(230, 300, 520, 100);
+			getContentPane().add(textArea1);
+
+			// ganttChart
+			XYIntervalSeriesCollection ganntDataset2 = creatGannt(data2);
+			JFreeChart ganntChart2 = creatGanntChart(ganntDataset2);
+			ChartPanel ganntChartPanel2 = new ChartPanel(ganntChart2);
+			ganntChartPanel2.setBounds(230, 450, 520, 200);
+			getContentPane().add(ganntChartPanel2);
+			// pieChart
+			DefaultPieDataset piDataset2 = creatPi(data2);
+			JFreeChart piChart2 = createPieChart(piDataset2);
+			ChartPanel piChartPanel2 = new ChartPanel(piChart2);
+			piChartPanel2.setBounds(30, 450, 200, 200);
+			getContentPane().add(piChartPanel2);
+			// Text
+			TextArea textArea2 = new TextArea();
+			textArea2.setBounds(230, 650, 520, 100);
+			getContentPane().add(textArea2);
+
+			setBounds(100, 100, 800, 850);
+		} else if (day == "2박 3일") {
+			// rabel
+			JLabel lblNewLabel1 = new JLabel(day);
+			lblNewLabel1.setHorizontalAlignment(SwingConstants.CENTER);
+			lblNewLabel1.setFont(new Font("함초롬돋움", Font.PLAIN, 30));
+			lblNewLabel1.setBounds(245, 10, 300, 40);
+			getContentPane().add(lblNewLabel1);
+			// ganttChart
+			XYIntervalSeriesCollection ganntDataset1 = creatGannt(data1);
+			JFreeChart ganntChart1 = creatGanntChart(ganntDataset1);
+			ChartPanel ganntChartPanel1 = new ChartPanel(ganntChart1);
+			ganntChartPanel1.setBounds(230, 50, 520, 200);
+			getContentPane().add(ganntChartPanel1);
+			// pieChart
+			DefaultPieDataset piDataset1 = creatPi(data1);
+			JFreeChart piChart1 = createPieChart(piDataset1);
+			ChartPanel piChartPanel1 = new ChartPanel(piChart1);
+			piChartPanel1.setBounds(30, 50, 200, 200);
+			getContentPane().add(piChartPanel1);
+			// Text
+			TextArea textArea1 = new TextArea();
+			textArea1.setBounds(230, 250, 520, 100);
+			getContentPane().add(textArea1);
+
+			// ganttChart
+			XYIntervalSeriesCollection ganntDataset2 = creatGannt(data2);
+			JFreeChart ganntChart2 = creatGanntChart(ganntDataset2);
+			ChartPanel ganntChartPanel2 = new ChartPanel(ganntChart2);
+			ganntChartPanel2.setBounds(230, 350, 520, 200);
+			getContentPane().add(ganntChartPanel2);
+			// pieChart
+			DefaultPieDataset piDataset2 = creatPi(data2);
+			JFreeChart piChart2 = createPieChart(piDataset2);
+			ChartPanel piChartPanel2 = new ChartPanel(piChart2);
+			piChartPanel2.setBounds(30, 350, 200, 200);
+			getContentPane().add(piChartPanel2);
+			// Text
+			TextArea textArea2 = new TextArea();
+			textArea2.setBounds(230, 550, 520, 100);
+			getContentPane().add(textArea2);
+
+			// ganttChart
+			XYIntervalSeriesCollection ganntDataset3 = creatGannt(data3);
+			JFreeChart ganntChart3 = creatGanntChart(ganntDataset3);
+			ChartPanel ganntChartPanel3 = new ChartPanel(ganntChart3);
+			ganntChartPanel3.setBounds(230, 650, 520, 200);
+			getContentPane().add(ganntChartPanel3);
+			// pieChart
+			DefaultPieDataset piDataset3 = creatPi(data3);
+			JFreeChart piChart3 = createPieChart(piDataset3);
+			ChartPanel piChartPanel3 = new ChartPanel(piChart3);
+			piChartPanel3.setBounds(30, 650, 200, 200);
+			getContentPane().add(piChartPanel3);
+			// Text
+			TextArea textArea3 = new TextArea();
+			textArea3.setBounds(230, 850, 520, 100);
+			getContentPane().add(textArea3);
+
+			setBounds(100, 100, 800, 1050);
+		}
 	}
 
-	private static JFreeChart createChart(PieDataset dataset) {
+	private static XYIntervalSeriesCollection creatGannt(Info data[]) {
+		XYIntervalSeriesCollection ganntDataset = new XYIntervalSeriesCollection();
+		int size = data.length;
 
-		JFreeChart chart = ChartFactory.createPieChart("Pie Chart Demo 1", // chart
-																			// title
-				dataset, // data
-				true, // include legend
-				true, false);
+		XYIntervalSeries[] series = new XYIntervalSeries[size];
 
+		String[] spotName = new String[size];
+
+		for (int i = 0; i < size; i++) {
+			spotName[i] = data[i].name;
+		}
+
+		for (int i = 0; i < size; i++) {
+			series[i] = new XYIntervalSeries(spotName[i]);
+			ganntDataset.addSeries(series[i]);
+		}
+
+		for (int i = 0; i < size; i++) {
+			series[i].add(0, -0.3, 0.3, (data[i].start + data[i].end) / 2, data[i].start, data[i].end);
+		}
+
+		return ganntDataset;
+	}
+
+	private static JFreeChart creatGanntChart(XYIntervalSeriesCollection ganntDataset) {
+		String[] list = { "" };
+		XYBarRenderer renderer = new XYBarRenderer();
+		renderer.setUseYInterval(true);
+		XYPlot plot = new XYPlot(ganntDataset, new SymbolAxis("", list), new NumberAxis(), renderer);
+		plot.setOrientation(PlotOrientation.HORIZONTAL);
+		JFreeChart ganntChart = new JFreeChart(plot);
+		return ganntChart;
+	}
+
+	private static DefaultPieDataset creatPi(Info data[]) {
+		DefaultPieDataset dataset = new DefaultPieDataset();
+		int size = data.length;
+		int startArry[] = new int[size];
+		int endArry[] = new int[size];
+
+		for (int i = 0; i < size; i++) {
+			startArry[i] = data[i].start;
+			endArry[i] = data[i].end;
+		}
+
+		int reTime = 24;
+		int j = 0;
+		int x = 1;
+		int temp1 = 0, temp2 = 0;
+		for (int i = 0;; i++) {
+			if (reTime != 0) {
+				if (i == startArry[j]) {
+					temp1 = endArry[j] - startArry[j];
+					dataset.setValue(data[j].name + " " + startArry[j], temp1);
+					i = endArry[j] - 1;
+					reTime -= temp1;
+					if (j < size - 1) {
+						j++;
+					}
+				} else if (i != startArry[j]) {
+					if (i + 1 == startArry[j] || reTime - 1 == 0) {
+						dataset.setValue("휴식" + x, temp2 + 1);
+						reTime -= 1;
+						temp2 = 0;
+						x++;
+					} else {
+						reTime -= 1;
+						temp2 += 1;
+					}
+				}
+			} else if (reTime == 0) {
+				break;
+			}
+		}
+		return dataset;
+	}
+
+	private static JFreeChart createPieChart(PieDataset dataset) {
+		JFreeChart chart = ChartFactory.createPieChart(null, dataset, false, false, false);
 		PiePlot plot = (PiePlot) chart.getPlot();
 		plot.setLabelFont(new Font("SansSerif", Font.PLAIN, 12));
 		plot.setNoDataMessage("No data available");
