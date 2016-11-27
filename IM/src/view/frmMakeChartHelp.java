@@ -1,8 +1,11 @@
 package view;
 
-import java.awt.Font;
-
 import javax.swing.JFrame;
+
+import data.HelpInfo;
+import data.SelfInfo;
+
+import java.awt.Font;
 
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.SymbolAxis;
@@ -11,7 +14,6 @@ import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYBarRenderer;
 import org.jfree.data.xy.XYIntervalSeries;
 import org.jfree.data.xy.XYIntervalSeriesCollection;
-
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -19,76 +21,122 @@ import org.jfree.chart.plot.PiePlot;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 
-import data.SelfInfo;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.TextArea;
+import java.util.Random;
 
-public class frmMakeChart extends JFrame {
+public class frmMakeChartHelp extends JFrame {
 
-	public frmMakeChart(SelfInfo data[], String day) {
+	public frmMakeChartHelp(HelpInfo[] data, String day, String begin, String finish) {
 		setVisible(true);
-		//setBounds(100, 100, 800, 1000);
+		setBounds(100, 100, 1000, 800);
 		setLayout(null);
 
-		int size = data.length;
-		int countDay = 0;
+		HelpInfo[] data1 = null;
+		HelpInfo[] data2 = null;
+		HelpInfo[] data3 = null;
 
-		int d1 = 0, d2 = 0, d3 = 0;
-		for (int i = 0; i < size - 1; i++) {
-			if (countDay == 0) {
-				d1++;
-			} else if (countDay == 1) {
-				d2++;
-			} else if (countDay == 2) {
-				d3++;
-			}
-			if (data[i].day != data[i + 1].day) {
-				countDay++;
-			}
-		}
-		if (countDay == 0) {
-			d1++;
-		} else if (countDay == 1) {
-			d2++;
-		} else if (countDay == 2) {
-			d3++;
-		}
+		String[] temp1 = new String[4];
+		String[] temp2 = new String[4];
+		String[] temp3 = new String[4];
 
-		SelfInfo[] data1 = new SelfInfo[d1];
-		SelfInfo[] data2 = new SelfInfo[d2];
-		SelfInfo[] data3 = new SelfInfo[d3];
+		Random random = new Random();
 
-		countDay = 0;
-		d1 = 0;
-		d2 = 0;
-		d3 = 0;
-		for (int i = 0; i < size - 1; i++) {
-			if (countDay == 0) {
-				data1[d1] = data[i];
-				d1++;
-			} else if (countDay == 1) {
-				data2[d2] = data[i];
-				d2++;
-			} else if (countDay == 2) {
-				data3[d3] = data[i];
-				d3++;
-			}
+		if (day == "당일 여행") {
+			temp1[0] = data[0].name1;
+			temp1[1] = data[0].name2;
+			temp1[2] = data[0].name3;
+			temp1[3] = data[0].name4;
 
-			if (data[i].day != data[i + 1].day) {
-				countDay++;
+			data1 = new HelpInfo[2];
+			data1[0] = new HelpInfo(temp1[random.nextInt(4)], 9, 11);
+			data1[1] = new HelpInfo(temp1[random.nextInt(4)], 13, 17);
+		} else if (day == "1박 2일") {
+			temp1[0] = data[0].name1;
+			temp1[1] = data[0].name2;
+			temp1[2] = data[0].name3;
+			temp1[3] = data[0].name4;
+
+			temp2[0] = data[1].name1;
+			temp2[1] = data[1].name2;
+			temp2[2] = data[1].name3;
+			temp2[3] = data[1].name4;
+
+			if (begin == "오전") {
+				data1 = new HelpInfo[2];
+				data1[0] = new HelpInfo(temp1[random.nextInt(4)], 9, 11);
+				data1[1] = new HelpInfo(temp1[random.nextInt(4)], 13, 17);
+				if (finish == "오전") {
+					data2 = new HelpInfo[1];
+					data2[0] = new HelpInfo(temp2[random.nextInt(4)], 9, 11);
+				} else if (finish == "오후") {
+					data2 = new HelpInfo[2];
+					data2[0] = new HelpInfo(temp2[random.nextInt(4)], 9, 11);
+					data2[1] = new HelpInfo(temp2[random.nextInt(4)], 13, 17);
+				}
+			} else if (begin == "오후") {
+				data1 = new HelpInfo[1];
+				data1[0] = new HelpInfo(temp1[random.nextInt(4)], 13, 17);
+				if (finish == "오전") {
+					data2 = new HelpInfo[1];
+					data2[0] = new HelpInfo(temp2[random.nextInt(4)], 9, 11);
+				} else if (finish == "오후") {
+					data2 = new HelpInfo[2];
+					data2[0] = new HelpInfo(temp2[random.nextInt(4)], 9, 11);
+					data2[1] = new HelpInfo(temp2[random.nextInt(4)], 13, 17);
+				}
 			}
-		}
-		if (countDay == 0) {
-			data1[d1] = data[size - 1];
-		} else if (countDay == 1) {
-			data2[d2] = data[size - 1];
-		} else if (countDay == 2) {
-			data3[d3] = data[size - 1];
+		} else if (day == "2박 3일") {
+			temp1[0] = data[0].name1;
+			temp1[1] = data[0].name2;
+			temp1[2] = data[0].name3;
+			temp1[3] = data[0].name4;
+
+			temp2[0] = data[1].name1;
+			temp2[1] = data[1].name2;
+			temp2[2] = data[1].name3;
+			temp2[3] = data[1].name4;
+
+			temp3[0] = data[2].name1;
+			temp3[1] = data[2].name2;
+			temp3[2] = data[2].name3;
+			temp3[3] = data[2].name4;
+
+			if (begin == "오전") {
+				data1 = new HelpInfo[2];
+				data1[0] = new HelpInfo(temp1[random.nextInt(4)], 9, 11);
+				data1[1] = new HelpInfo(temp1[random.nextInt(4)], 13, 17);
+				data2 = new HelpInfo[2];
+				data2[0] = new HelpInfo(temp2[random.nextInt(4)], 9, 11);
+				data2[1] = new HelpInfo(temp2[random.nextInt(4)], 13, 17);
+				if (finish == "오전") {
+					data3 = new HelpInfo[1];
+					data3[0] = new HelpInfo(temp3[random.nextInt(4)], 9, 11);
+				} else if (finish == "오후") {
+					data3 = new HelpInfo[2];
+					data3[0] = new HelpInfo(temp3[random.nextInt(4)], 9, 11);
+					data3[1] = new HelpInfo(temp3[random.nextInt(4)], 13, 17);
+				}
+			} else if (begin == "오후") {
+				data1 = new HelpInfo[1];
+				data1[0] = new HelpInfo(temp1[random.nextInt(4)], 13, 17);
+				data2 = new HelpInfo[2];
+				data2[0] = new HelpInfo(temp2[random.nextInt(4)], 9, 11);
+				data2[1] = new HelpInfo(temp2[random.nextInt(4)], 13, 17);
+				if (finish == "오전") {
+					data3 = new HelpInfo[1];
+					data3[0] = new HelpInfo(temp3[random.nextInt(4)], 9, 11);
+				} else if (finish == "오후") {
+					data3 = new HelpInfo[2];
+					data3[0] = new HelpInfo(temp3[random.nextInt(4)], 9, 11);
+					data3[1] = new HelpInfo(temp3[random.nextInt(4)], 13, 17);
+				}
+			}
 		}
 
 		if (day == "당일 여행") {
-			setTitle("SELF - 당일 여행");
+			setTitle("Help - 당일 여행");
 			// rabel
 			JLabel lblNewLabel = new JLabel(day);
 			lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -115,6 +163,7 @@ public class frmMakeChart extends JFrame {
 
 			setBounds(100, 100, 800, 500);
 		} else if (day == "1박 2일") {
+			setTitle("Help - 1박 2일");
 			// rabel
 			JLabel lblNewLabel1 = new JLabel(day);
 			lblNewLabel1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -136,7 +185,8 @@ public class frmMakeChart extends JFrame {
 			// Text
 			TextArea textArea1 = new TextArea();
 			textArea1.setBounds(230, 300, 520, 100);
-			textArea1.setText("교통 비 : " + moveCost(data1) + "\n" + "식 비 : " + eatCost(data1)+"\n"+"숙박 비 : " + data1[0].sleepCost);
+			textArea1.setText("교통 비 : " + moveCost(data1) + "\n" + "식 비 : " + eatCost(data1) + "\n" + "숙박 비 : "
+					+ data1[0].sleepCost);
 			getContentPane().add(textArea1);
 
 			// ganttChart
@@ -154,11 +204,13 @@ public class frmMakeChart extends JFrame {
 			// Text
 			TextArea textArea2 = new TextArea();
 			textArea2.setBounds(230, 650, 520, 100);
-			textArea2.setText("교통 비 : " + moveCost(data2) + "\n" + "식 비 : " + eatCost(data2)+"\n"+"숙박 비 : " + data2[0].sleepCost);
+			textArea2.setText("교통 비 : " + moveCost(data2) + "\n" + "식 비 : " + eatCost(data2) + "\n" + "숙박 비 : "
+					+ data2[0].sleepCost);
 			getContentPane().add(textArea2);
 
 			setBounds(100, 100, 800, 850);
 		} else if (day == "2박 3일") {
+			setTitle("Help - 2박 3일");
 			// rabel
 			JLabel lblNewLabel1 = new JLabel(day);
 			lblNewLabel1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -180,7 +232,8 @@ public class frmMakeChart extends JFrame {
 			// Text
 			TextArea textArea1 = new TextArea();
 			textArea1.setBounds(230, 250, 520, 100);
-			textArea1.setText("교통 비 : " + moveCost(data1) + "\n" + "식 비 : " + eatCost(data1)+"\n"+"숙박 비 : " + data1[0].sleepCost);
+			textArea1.setText("교통 비 : " + moveCost(data1) + "\n" + "식 비 : " + eatCost(data1) + "\n" + "숙박 비 : "
+					+ data1[0].sleepCost);
 			getContentPane().add(textArea1);
 
 			// ganttChart
@@ -198,7 +251,8 @@ public class frmMakeChart extends JFrame {
 			// Text
 			TextArea textArea2 = new TextArea();
 			textArea2.setBounds(230, 550, 520, 100);
-			textArea2.setText("교통 비 : " + moveCost(data2) + "\n" + "식 비 : " + eatCost(data2)+"\n"+"숙박 비 : " + data2[0].sleepCost);
+			textArea2.setText("교통 비 : " + moveCost(data2) + "\n" + "식 비 : " + eatCost(data2) + "\n" + "숙박 비 : "
+					+ data2[0].sleepCost);
 			getContentPane().add(textArea2);
 
 			// ganttChart
@@ -223,7 +277,7 @@ public class frmMakeChart extends JFrame {
 		}
 	}
 
-	private static XYIntervalSeriesCollection creatGannt(SelfInfo data[]) {
+	private static XYIntervalSeriesCollection creatGannt(HelpInfo data[]) {
 		XYIntervalSeriesCollection ganntDataset = new XYIntervalSeriesCollection();
 		int size = data.length;
 
@@ -257,7 +311,7 @@ public class frmMakeChart extends JFrame {
 		return ganntChart;
 	}
 
-	private static DefaultPieDataset creatPi(SelfInfo data[]) {
+	private static DefaultPieDataset creatPi(HelpInfo data[]) {
 		DefaultPieDataset dataset = new DefaultPieDataset();
 		int size = data.length;
 		int startArry[] = new int[size];
@@ -310,7 +364,7 @@ public class frmMakeChart extends JFrame {
 		return chart;
 	}
 
-	private static int moveCost(SelfInfo data[]) {
+	private static int moveCost(HelpInfo data[]) {
 		int size = data.length;
 		int cost = 0;
 		for (int i = 0; i < size; i++) {
@@ -319,7 +373,7 @@ public class frmMakeChart extends JFrame {
 		return cost;
 	}
 
-	private static int eatCost(SelfInfo data[]) {
+	private static int eatCost(HelpInfo data[]) {
 		int size = data.length;
 		int cost = 0;
 		for (int i = 0; i < size; i++) {

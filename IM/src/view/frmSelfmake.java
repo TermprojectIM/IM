@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import data.Info;
+import data.SelfInfo;
 import main.Main;
 import view.panel.PanImgload;
 
@@ -99,10 +100,10 @@ public class frmSelfmake extends JFrame {
 				System.out.println("차트 선택됨");
 				System.out.println("테이블에" + make.getRowCount() + "개의 레코드가 존재합니다");
 				// 여기서 넘겨주면됩니다
-				Info[] data = new Info[model.getRowCount()];
+				SelfInfo[] data = new SelfInfo[model.getRowCount()];
 
 				for (int i = 0; i < model.getRowCount(); i++) {
-					data[i] = new Info((String) model.getValueAt(i, 0), (String) model.getValueAt(i, 1),
+					data[i] = new SelfInfo((String) model.getValueAt(i, 0), (String) model.getValueAt(i, 1),
 							(String) model.getValueAt(i, 2));
 				}
 
@@ -133,9 +134,4 @@ public class frmSelfmake extends JFrame {
 			layeredPane.add(component, new Integer(i++));
 		return layeredPane;
 	}
-
-	public static void main(String[] args) {
-		frmSelfmake fsm = new frmSelfmake("2박 3일");
-	}
-
 }
