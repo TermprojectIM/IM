@@ -14,18 +14,23 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableCellRenderer;
 
+import main.Main;
 import view.panel.PanImgload;
 
 public class frmSelf extends JFrame {
-	private JLayeredPane layeredPane = new JLayeredPane(); // ¼¿·ÎÆÇÁö ½Ä;
+	Main main;
+	private JLayeredPane layeredPane = new JLayeredPane(); // ì…€ë¡œíŒì§€ ì‹;
 	JTextField search;
 	JButton btnMake,btnDay;
 	JComboBox <String>box;
-	
-	public frmSelf(){
-		setTitle("IM - ½º½º·Î ¿©ÇàÂ¥±â");
+	frmSelfmake smk;
+	public frmSelf(Main main){
+		this.main=main;
+		setTitle("IM - ìŠ¤ìŠ¤ë¡œ ì—¬í–‰ì§œê¸°");
 		setSize(1040,800);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(null);
@@ -37,41 +42,57 @@ public class frmSelf extends JFrame {
 		
 		setPanel(layeredPane).setBounds(0,0,1040,800);
 		
-		//¹è°æ
+		//ï¿½ï¿½ï¿½
 		JPanel backGround = new PanImgload("img/op3.png");
 		setPanel(backGround).setBounds(0, 0, 1040, 800);
 		search = new JTextField(25);
 		setPanel(search).setBounds(540, 124, 375, 50);
-		search.setFont(new Font("¹è´ŞÀÇ¹ÎÁ· ÇÑ³ª", Font.BOLD, 20));
+		search.setFont(new Font("ë°°ë‹¬ì˜ë¯¼ì¡± í•œë‚˜", Font.BOLD, 20));
 		search.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		search.setForeground(Color.darkGray);
 
-		String[] items = {"´çÀÏ ¿©Çà", "1¹Ú 2ÀÏ", "2¹Ú 3ÀÏ", "3¹Ú 4ÀÏ", "4¹Ú 5ÀÏ", "5¹Ú 6ÀÏ", "Àå±â ¿©Çà"};
+		String[] items = {"ë‹¹ì¼ ì—¬í–‰", "1ë°• 2ì¼", "2ë°• 3ì¼", "3ë°• 4ì¼", "4ë°• 5ì¼", "5ë°• 6ì¼", "ì¥ê¸° ì—¬í–‰"};
 		box = new JComboBox<String>(items);
-		box.setSelectedIndex(2);
-		box.setLocation(750, 200);
-		box.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e) {
-            	String str = (String)box.getSelectedItem();
-            	System.out.println(str + "¼±ÅÃ µÇ¾ú½À´Ï´Ù.");
-            }
-        });
+		box.setSelectedIndex(0);
+		box.setBounds(530, 190, 230,50);
+		box.setVisible(true);
 		
+//		box.addActionListener(new ActionListener(){
+//            public void actionPerformed(ActionEvent e) {
+//            	String str = (String)box.getSelectedItem();
+//            	System.out.println(str + "ì„ íƒ ë˜ì—ˆìŠµë‹ˆë‹¤.");
+//            }
+//        });
+//		
 		
 		btnMake = new JButton();
 		btnMake.setBounds(770, 190, 200, 50);
 		btnMake.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	System.out.println("¸¸µé±â ´­¸²");
-            	
+            	String str = (String)box.getSelectedItem();
+            	if(str.equals("ë‹¹ì¼ ì—¬í–‰")){
+            		System.out.println(str + " ë§Œë“¤ê¸° ëˆŒë¦¼");
+            		smk = new frmSelfmake("ë‹¹ì¼ ì—¬í–‰");
+            	}else if(str.equals("1ë°• 2ì¼")){
+            		System.out.println(str + " ë§Œë“¤ê¸° ëˆŒë¦¼");
+            		smk = new frmSelfmake("1ë°• 2ì¼");
+            	}else if(str.equals("2ë°• 3ì¼")){
+            		System.out.println(str + " ë§Œë“¤ê¸° ëˆŒë¦¼");
+            		smk = new frmSelfmake("2ë°• 3ì¼");
+            	}else{
+            		System.out.println("ì¼ë‹¨ì€ êµ¬í˜„ì•ˆí•˜ê³  ì„ì˜ë¡œ í•­ëª©ë§Œ ë‘” ê²ƒ");
+            	}
             }
         });
 		
 		btnBlind(btnMake);
-		//frmMap imgM = new frmMap(search);
-		//imgM.setBounds(100,260,450,450);	
-		//¿ì¼±¼øÀ§¸¦ Áõ°¡ÇÏ¸é¼­ Áï µÚ¿¡ÀÖ´Â°ÍÀÇ ¿ì¼±¼øÀ§°¡ ³ô°Ô ¼³Á¤
-		//add(setJLayered(backGround,imgM,imgM.btnSearch,search,btnMake,box));
+		frmInfo info = new frmInfo();
+		frmMap imgM = new frmMap(search,info);
+		imgM.setBounds(50,140,380,591);
+		imgM.setMain(this.main);
+		info.scrollpane.setBounds(530,250,450,488);
+		//ìš°ì„ ìˆœìœ„ë¥¼ ì¦ê°€í•˜ë©´ì„œ ì¦‰ ë’¤ì—ìˆëŠ”ê²ƒì˜ ìš°ì„ ìˆœìœ„ê°€ ë†’ê²Œ ì„¤ì •
+		add(setJLayered(backGround,imgM,imgM.btnSearch,search,box,btnMake,info.scrollpane));
 		setVisible(true);
 	}
 
@@ -94,7 +115,10 @@ public class frmSelf extends JFrame {
         return layeredPane;
     }	
 
-	public static void main(String[] args) {
-		new frmSelf();
-	}
+
+//	public static void main(String[] args) {
+//		new frmSelf();
+//	}
 }
+
+

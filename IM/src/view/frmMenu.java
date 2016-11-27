@@ -164,5 +164,4 @@ public class frmMenu extends JFrame implements MouseListener{
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {}
-
 }
