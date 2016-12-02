@@ -6,6 +6,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -19,6 +20,7 @@ import view.panel.PanImgload;
 
 public class frmRgtMember extends JFrame {
 	private JLayeredPane layeredPane = new JLayeredPane();
+	private JButton btnHome = new JButton(new ImageIcon("img/home.png"));
 	Main main;
 	JTextField id,rank;
 	JButton btnRgtMem;
@@ -39,6 +41,7 @@ public class frmRgtMember extends JFrame {
 		id = new JTextField(15); rank = new JTextField(15);
 		id.setBounds(200,147,200,35); rank.setBounds(200,224,200,35);
 		btnRgtMem = new JButton(); btnRgtMem.setBounds(250,330,95,45); btnBlind(btnRgtMem);
+		btnHome.setBounds(430,10,45,45); btnBlind(btnHome);
 		
 		btnRgtMem.addActionListener(new ActionListener() {
 	          public void actionPerformed(ActionEvent e) {
@@ -53,9 +56,14 @@ public class frmRgtMember extends JFrame {
 	        	  }
 	      });
 		
+		btnHome.addActionListener(new ActionListener() {
+	          public void actionPerformed(ActionEvent e) {
+	        	  dispose();
+	        	  main.showFrameadmin();
+	          }
+	      });
 		
-		
-		add(setJLayered(backGround,id,rank,btnRgtMem));
+		add(setJLayered(backGround,id,rank,btnRgtMem,btnHome));
 		setVisible(true);
 	}
 	

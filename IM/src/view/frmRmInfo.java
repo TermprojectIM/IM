@@ -8,6 +8,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -24,14 +25,15 @@ import main.Main;
 
 public class frmRmInfo extends JFrame {
 	private JLayeredPane layeredPane = new JLayeredPane();
+	private JButton btnHome = new JButton(new ImageIcon("img/home.png"));
 	Main main;
 	JTable table;
 	JTextField name;
 	JButton btnDel;
 	DefaultTableModel model;
 	JScrollPane scrollpane;
-	String result[][] = new String[100][4];
-	
+	String result[][] = null;
+	int cnt=0;
 	public frmRmInfo(Main main){
 		this.main=main;
 		setTitle("여행지 정보 삭제");
@@ -57,12 +59,16 @@ public class frmRmInfo extends JFrame {
 		scrollpane.setBounds(10,100,320,320);
 		result=main.readSelfInfo();
 		//처음 selfinfo 테이블 정보 다가져와서 올리기
-		for(int i=0;i<100;i++){
+		cnt = result.length;
+		System.out.println(cnt);
+		for(int i=0;i<cnt;i++){
 			model.addRow(result[i]);
 		}
+		table.setModel(model);
 		
 		//button
 		btnDel = new JButton();  btnDel.setBounds(469,240,100,60); btnBlind(btnDel);
+		btnHome.setBounds(560,10,45,45); btnBlind(btnHome);
 		btnDel.addActionListener(new ActionListener() {
 	          public void actionPerformed(ActionEvent e) {
 	        	  System.out.println("삭제 선택됨");
@@ -71,7 +77,8 @@ public class frmRmInfo extends JFrame {
 	        		  JOptionPane.showMessageDialog(null, "데이터 삭제 성공하였습니다.");
 	        		  model = new DefaultTableModel(attribute,0);
 	        		  result=main.readSelfInfo();
-	        		  for(int i=0;i<100;i++){
+	        		  cnt=result.length;
+	        		  for(int i=0;i<cnt;i++){
 	        			  model.addRow(result[i]);
 	        		  }
 	        		  table.setModel(model);
@@ -81,7 +88,14 @@ public class frmRmInfo extends JFrame {
         	  	}
 	      });
 		
-		add(setJLayered(backGround,scrollpane,name,btnDel));
+		btnHome.addActionListener(new ActionListener() {
+	          public void actionPerformed(ActionEvent e) {
+	        	  dispose();
+	        	  main.showFrameadmin();
+	          }
+	      });
+		
+		add(setJLayered(backGround,scrollpane,name,btnDel,btnHome));
 		setVisible(true);
 	}
 	
