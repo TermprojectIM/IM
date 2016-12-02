@@ -8,6 +8,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -24,6 +25,7 @@ import view.panel.PanImgload;
 public class frmSelf extends JFrame {
 	Main main;
 	private JLayeredPane layeredPane = new JLayeredPane(); // 셀로판지 식;
+	private JButton btnHome = new JButton(new ImageIcon("img/home.png"));
 	JTextField search;
 	JButton btnMake,btnDay;
 	JComboBox <String>box;
@@ -66,7 +68,7 @@ public class frmSelf extends JFrame {
 //		
 		
 		btnMake = new JButton();
-		btnMake.setBounds(770, 190, 200, 50);
+		btnMake.setBounds(770, 190, 200, 50); btnHome.setBounds(960,12,45,45);
 		btnMake.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	String str = (String)box.getSelectedItem();
@@ -85,14 +87,21 @@ public class frmSelf extends JFrame {
             }
         });
 		
-		btnBlind(btnMake);
+		btnHome.addActionListener(new ActionListener() {
+	          public void actionPerformed(ActionEvent e) {
+	        	  dispose();
+	        	  main.showFrameMain();
+	          }
+	      });
+		
+		btnBlind(btnMake); btnBlind(btnHome);
 		frmInfo info = new frmInfo();
 		frmMap imgM = new frmMap(search,info);
 		imgM.setBounds(50,140,380,591);
 		imgM.setMain(this.main);
 		info.scrollpane.setBounds(530,250,450,488);
 		//우선순위를 증가하면서 즉 뒤에있는것의 우선순위가 높게 설정
-		add(setJLayered(backGround,imgM,imgM.btnSearch,search,box,btnMake,info.scrollpane));
+		add(setJLayered(backGround,imgM,imgM.btnSearch,search,box,btnMake,btnHome,info.scrollpane));
 		setVisible(true);
 	}
 

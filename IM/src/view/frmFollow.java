@@ -25,7 +25,8 @@ public class frmFollow extends JFrame implements ActionListener {
 	private JButton put3 = new JButton(new ImageIcon("img/put.png"));
 	private JButton put4 = new JButton(new ImageIcon("img/put.png"));
 	private JButton put5 = new JButton(new ImageIcon("img/put.png"));
-	
+	private JButton btnHome = new JButton(new ImageIcon("img/home.png"));
+	String id;
 	public frmFollow(Main main){
 		this.main = main;
 		setTitle("IM - 패키지 여행");
@@ -42,10 +43,10 @@ public class frmFollow extends JFrame implements ActionListener {
 		setPanel(backGround).setBounds(0, 0, 820, 880);
 		//버튼 설정 부분
 		put1.setBounds(700,45,85,85);put2.setBounds(700,210,85,85);put3.setBounds(700,380,85,85);
-		put4.setBounds(700,550,85,85);put5.setBounds(700,710,85,85);
-		btnBlind(put1); btnBlind(put2); btnBlind(put3); btnBlind(put4); btnBlind(put5);
+		put4.setBounds(700,550,85,85);put5.setBounds(700,710,85,85);btnHome.setBounds(750,1,45,45);
+		btnBlind(put1); btnBlind(put2); btnBlind(put3); btnBlind(put4); btnBlind(put5); btnBlind(btnHome);
  		start();//이벤트
-		add(setJLayered(backGround,put1,put2,put3,put4,put5));
+		add(setJLayered(backGround,put1,put2,put3,put4,put5,btnHome));
 		setVisible(true);
 	}	
 	
@@ -55,6 +56,7 @@ public class frmFollow extends JFrame implements ActionListener {
 		put3.addActionListener(this);
 		put4.addActionListener(this);
 		put5.addActionListener(this);
+		btnHome.addActionListener(this);
 		
 	}
 	
@@ -72,9 +74,12 @@ public class frmFollow extends JFrame implements ActionListener {
 		}else if(e.getSource()==put4){
 			System.out.println("4 - 담겼습니다");
 			JOptionPane.showMessageDialog(null, "마이페이지에 저장하였습니다.");
-		}if(e.getSource()==put5){
+		}else if(e.getSource()==put5){
 			System.out.println("5 - 담겼습니다");
 			JOptionPane.showMessageDialog(null, "마이페이지에 저장하였습니다.");
+		}else if(e.getSource()==btnHome){
+			dispose();
+      	    main.showFrameMain();
 		}
 	}	
 

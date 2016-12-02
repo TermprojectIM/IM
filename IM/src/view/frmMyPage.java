@@ -36,6 +36,7 @@ public class frmMyPage extends JFrame implements ActionListener, MouseListener{
 	private JButton btnUserInformation = new JButton(new ImageIcon("img/userinfo.png"));
 	private JButton btnMyGrade = new JButton(new ImageIcon("img/grade.png"));
 	private JButton btnMyList = new JButton(new ImageIcon("img/epilogue.png"));
+	private JButton btnHome = new JButton(new ImageIcon("img/home.png"));
 	private JTextField userInfo = new JTextField();
 	private JTextField grade = new JTextField();
 	private JTextField epil = new JTextField();
@@ -77,10 +78,11 @@ public class frmMyPage extends JFrame implements ActionListener, MouseListener{
 		//버튼 설정 부분
 		Color color = new Color(0xFF0000,true);
 		btnMyList.setBounds(550, 100, 85, 85); btnMyGrade.setBounds(350, 100, 85, 85);
-		btnUserInformation.setBounds(150, 100, 85, 85);
-		btnUserInformation.setText("1"); btnMyGrade.setText("2"); btnMyList.setText("3");
+		btnUserInformation.setBounds(150, 100, 85, 85); btnHome.setBounds(745,10,45,45);
+		btnUserInformation.setText("1"); btnMyGrade.setText("2"); btnMyList.setText("3"); 
 		btnUserInformation.setForeground(color); btnMyGrade.setForeground(color); btnMyList.setForeground(color);
- 		btnBlind(btnUserInformation); btnBlind(btnMyGrade); btnBlind(btnMyList);
+		
+ 		btnBlind(btnUserInformation); btnBlind(btnMyGrade); btnBlind(btnMyList); btnBlind(btnHome);
 
  		//등급위한 이미지 설정
  		image[0] = new PanImgload("img/unrank.png");
@@ -91,7 +93,7 @@ public class frmMyPage extends JFrame implements ActionListener, MouseListener{
  		//패널
  		jp = new JPanel(); jp.setBackground(Color.white);
  		start();//이벤트
-		add(setJLayered(jpBackGround, btnMyList,btnMyGrade,btnUserInformation,userInfo,grade,epil, jp));
+		add(setJLayered(jpBackGround,btnHome,btnMyList,btnMyGrade,btnUserInformation,userInfo,grade,epil, jp));
 		
 		//setPanelArea((JPanel) u_panel());
 		setVisible(true);
@@ -245,6 +247,7 @@ public class frmMyPage extends JFrame implements ActionListener, MouseListener{
 		btnUserInformation.addMouseListener(this);
 		btnMyGrade.addMouseListener(this);
 		btnMyList.addMouseListener(this);
+		btnHome.addActionListener(this);
 	}
 
 	@Override
@@ -258,6 +261,9 @@ public class frmMyPage extends JFrame implements ActionListener, MouseListener{
 		} else if (e.getSource() == btnMyList) {
 			JOptionPane.showMessageDialog(null, "나만의 후기 클릭.");
 			setPanelArea((JPanel)e_panel());
+		} else if (e.getSource() == btnHome){
+			dispose();
+			main.showFrameMain();
 		}
 	}
 	
