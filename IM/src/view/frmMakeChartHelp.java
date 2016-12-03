@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 
 import data.HelpInfo;
 import data.SelfInfo;
+import main.Main;
 
 import java.awt.Font;
 
@@ -27,8 +28,10 @@ import java.awt.TextArea;
 import java.util.Random;
 
 public class frmMakeChartHelp extends JFrame {
+	Main main;
 
-	public frmMakeChartHelp(HelpInfo[] data, String day, String begin, String finish) {
+	public frmMakeChartHelp(HelpInfo[] data, String day, String begin, String finish, Main main) {
+		this.main = main;
 		setVisible(true);
 		setBounds(100, 100, 1000, 800);
 		setLayout(null);
@@ -37,6 +40,7 @@ public class frmMakeChartHelp extends JFrame {
 		HelpInfo[] data2 = null;
 		HelpInfo[] data3 = null;
 
+		String temp = null;
 		String[] temp1 = new String[4];
 		String[] temp2 = new String[4];
 		String[] temp3 = new String[4];
@@ -50,8 +54,10 @@ public class frmMakeChartHelp extends JFrame {
 			temp1[3] = data[0].name4;
 
 			data1 = new HelpInfo[2];
-			data1[0] = new HelpInfo(temp1[random.nextInt(4)], 9, 11);
-			data1[1] = new HelpInfo(temp1[random.nextInt(4)], 13, 17);
+			temp = temp1[random.nextInt(4)];
+			data1[0] = new HelpInfo(temp, 9, 11);
+			temp = temp1[random.nextInt(4)];
+			data1[1] = new HelpInfo(temp, 13, 17);
 		} else if (day == "1박 2일") {
 			temp1[0] = data[0].name1;
 			temp1[1] = data[0].name2;
@@ -65,26 +71,35 @@ public class frmMakeChartHelp extends JFrame {
 
 			if (begin == "오전") {
 				data1 = new HelpInfo[2];
-				data1[0] = new HelpInfo(temp1[random.nextInt(4)], 9, 11);
-				data1[1] = new HelpInfo(temp1[random.nextInt(4)], 13, 17);
+				temp = temp1[random.nextInt(4)];
+				data1[0] = new HelpInfo(temp, 9, 11);
+				temp = temp1[random.nextInt(4)];
+				data1[1] = new HelpInfo(temp, 13, 17);
 				if (finish == "오전") {
 					data2 = new HelpInfo[1];
-					data2[0] = new HelpInfo(temp2[random.nextInt(4)], 9, 11);
+					temp = temp2[random.nextInt(4)];
+					data2[0] = new HelpInfo(temp, 9, 11);
 				} else if (finish == "오후") {
 					data2 = new HelpInfo[2];
-					data2[0] = new HelpInfo(temp2[random.nextInt(4)], 9, 11);
-					data2[1] = new HelpInfo(temp2[random.nextInt(4)], 13, 17);
+					temp = temp2[random.nextInt(4)];
+					data2[0] = new HelpInfo(temp, 9, 11);
+					temp = temp2[random.nextInt(4)];
+					data2[1] = new HelpInfo(temp, 13, 17);
 				}
 			} else if (begin == "오후") {
 				data1 = new HelpInfo[1];
-				data1[0] = new HelpInfo(temp1[random.nextInt(4)], 13, 17);
+				temp = temp1[random.nextInt(4)];
+				data1[0] = new HelpInfo(temp, 13, 17);
 				if (finish == "오전") {
 					data2 = new HelpInfo[1];
-					data2[0] = new HelpInfo(temp2[random.nextInt(4)], 9, 11);
+					temp = temp2[random.nextInt(4)];
+					data2[0] = new HelpInfo(temp, 9, 11);
 				} else if (finish == "오후") {
 					data2 = new HelpInfo[2];
-					data2[0] = new HelpInfo(temp2[random.nextInt(4)], 9, 11);
-					data2[1] = new HelpInfo(temp2[random.nextInt(4)], 13, 17);
+					temp = temp2[random.nextInt(4)];
+					data2[0] = new HelpInfo(temp, 9, 11);
+					temp = temp2[random.nextInt(4)];
+					data2[1] = new HelpInfo(temp, 13, 17);
 				}
 			}
 		} else if (day == "2박 3일") {
@@ -105,32 +120,45 @@ public class frmMakeChartHelp extends JFrame {
 
 			if (begin == "오전") {
 				data1 = new HelpInfo[2];
-				data1[0] = new HelpInfo(temp1[random.nextInt(4)], 9, 11);
-				data1[1] = new HelpInfo(temp1[random.nextInt(4)], 13, 17);
+				temp = temp1[random.nextInt(4)];
+				data1[0] = new HelpInfo(temp, 9, 11);
+				temp = temp1[random.nextInt(4)];
+				data1[1] = new HelpInfo(temp, 13, 17);
 				data2 = new HelpInfo[2];
-				data2[0] = new HelpInfo(temp2[random.nextInt(4)], 9, 11);
-				data2[1] = new HelpInfo(temp2[random.nextInt(4)], 13, 17);
+				temp = temp2[random.nextInt(4)];
+				data2[0] = new HelpInfo(temp, 9, 11);
+				temp = temp2[random.nextInt(4)];
+				data2[1] = new HelpInfo(temp, 13, 17);
 				if (finish == "오전") {
 					data3 = new HelpInfo[1];
-					data3[0] = new HelpInfo(temp3[random.nextInt(4)], 9, 11);
+					temp = temp3[random.nextInt(4)];
+					data3[0] = new HelpInfo(temp, 9, 11);
 				} else if (finish == "오후") {
 					data3 = new HelpInfo[2];
-					data3[0] = new HelpInfo(temp3[random.nextInt(4)], 9, 11);
-					data3[1] = new HelpInfo(temp3[random.nextInt(4)], 13, 17);
+					temp = temp3[random.nextInt(4)];
+					data3[0] = new HelpInfo(temp, 9, 11);
+					temp = temp3[random.nextInt(4)];
+					data3[1] = new HelpInfo(temp, 13, 17);
 				}
 			} else if (begin == "오후") {
 				data1 = new HelpInfo[1];
-				data1[0] = new HelpInfo(temp1[random.nextInt(4)], 13, 17);
+				temp = temp1[random.nextInt(4)];
+				data1[0] = new HelpInfo(temp, 13, 17);
 				data2 = new HelpInfo[2];
-				data2[0] = new HelpInfo(temp2[random.nextInt(4)], 9, 11);
-				data2[1] = new HelpInfo(temp2[random.nextInt(4)], 13, 17);
+				temp = temp2[random.nextInt(4)];
+				data2[0] = new HelpInfo(temp, 9, 11);
+				temp = temp2[random.nextInt(4)];
+				data2[1] = new HelpInfo(temp, 13, 17);
 				if (finish == "오전") {
 					data3 = new HelpInfo[1];
-					data3[0] = new HelpInfo(temp3[random.nextInt(4)], 9, 11);
+					temp = temp3[random.nextInt(4)];
+					data3[0] = new HelpInfo(temp, 9, 11);
 				} else if (finish == "오후") {
 					data3 = new HelpInfo[2];
-					data3[0] = new HelpInfo(temp3[random.nextInt(4)], 9, 11);
-					data3[1] = new HelpInfo(temp3[random.nextInt(4)], 13, 17);
+					temp = temp3[random.nextInt(4)];
+					data3[0] = new HelpInfo(temp, 9, 11);
+					temp = temp3[random.nextInt(4)];
+					data3[1] = new HelpInfo(temp, 13, 17);
 				}
 			}
 		}
@@ -158,7 +186,8 @@ public class frmMakeChartHelp extends JFrame {
 			// Text
 			TextArea textArea1 = new TextArea();
 			textArea1.setBounds(230, 300, 520, 100);
-			textArea1.setText("교통 비 : " + moveCost(data1) + "\n" + "식 비 : " + eatCost(data1));
+			textArea1.setText("교통 비 : " + moveCost(data1) + "\n" + "식 비 : " + eatCost(data1) + "\n" + data1[0].name
+					+ " : " + data1[0].comment + "\n" + data1[1].name + " : " + data1[1].comment);
 			getContentPane().add(textArea1);
 
 			setBounds(100, 100, 800, 500);
@@ -185,8 +214,14 @@ public class frmMakeChartHelp extends JFrame {
 			// Text
 			TextArea textArea1 = new TextArea();
 			textArea1.setBounds(230, 300, 520, 100);
-			textArea1.setText("교통 비 : " + moveCost(data1) + "\n" + "식 비 : " + eatCost(data1) + "\n" + "숙박 비 : "
-					+ data1[0].sleepCost);
+			if (begin == "오전") {
+				textArea1.setText("교통 비 : " + moveCost(data1) + "\n" + "식 비 : " + eatCost(data1) + "\n" + "숙박 비 : "
+						+ data1[0].sleepCost + "\n" + data1[0].name + " : " + data1[0].comment + "\n" + data1[1].name
+						+ " : " + data1[1].comment);
+			} else if (begin == "오후") {
+				textArea1.setText("교통 비 : " + moveCost(data1) + "\n" + "식 비 : " + eatCost(data1) + "\n" + "숙박 비 : "
+						+ data1[0].sleepCost + "\n" + data1[0].name + " : " + data1[0].comment);
+			}
 			getContentPane().add(textArea1);
 
 			// ganttChart
@@ -204,8 +239,13 @@ public class frmMakeChartHelp extends JFrame {
 			// Text
 			TextArea textArea2 = new TextArea();
 			textArea2.setBounds(230, 650, 520, 100);
-			textArea2.setText("교통 비 : " + moveCost(data2) + "\n" + "식 비 : " + eatCost(data2) + "\n" + "숙박 비 : "
-					+ data2[0].sleepCost);
+			if (finish == "오후") {
+				textArea2.setText("교통 비 : " + moveCost(data2) + "\n" + "식 비 : " + eatCost(data2) + "\n" + data2[0].name
+						+ " : " + data2[0].comment + "\n" + data2[1].name + " : " + data2[1].comment);
+			} else if (finish == "오전") {
+				textArea2.setText("교통 비 : " + moveCost(data2) + "\n" + "식 비 : " + eatCost(data2) + "\n" + data2[0].name
+						+ " : " + data2[0].comment);
+			}
 			getContentPane().add(textArea2);
 
 			setBounds(100, 100, 800, 850);
@@ -232,8 +272,14 @@ public class frmMakeChartHelp extends JFrame {
 			// Text
 			TextArea textArea1 = new TextArea();
 			textArea1.setBounds(230, 250, 520, 100);
-			textArea1.setText("교통 비 : " + moveCost(data1) + "\n" + "식 비 : " + eatCost(data1) + "\n" + "숙박 비 : "
-					+ data1[0].sleepCost);
+			if (begin == "오전") {
+				textArea1.setText("교통 비 : " + moveCost(data1) + "\n" + "식 비 : " + eatCost(data1) + "\n" + "숙박 비 : "
+						+ data1[0].sleepCost + "\n" + data1[0].name + " : " + data1[0].comment + "\n" + data1[1].name
+						+ " : " + data1[1].comment);
+			} else if (begin == "오후") {
+				textArea1.setText("교통 비 : " + moveCost(data1) + "\n" + "식 비 : " + eatCost(data1) + "\n" + "숙박 비 : "
+						+ data1[0].sleepCost + "\n" + data1[0].name + " : " + data1[0].comment);
+			}
 			getContentPane().add(textArea1);
 
 			// ganttChart
@@ -252,7 +298,8 @@ public class frmMakeChartHelp extends JFrame {
 			TextArea textArea2 = new TextArea();
 			textArea2.setBounds(230, 550, 520, 100);
 			textArea2.setText("교통 비 : " + moveCost(data2) + "\n" + "식 비 : " + eatCost(data2) + "\n" + "숙박 비 : "
-					+ data2[0].sleepCost);
+					+ data2[0].sleepCost + "\n" + data2[0].name + " : " + data2[0].comment + "\n" + data2[1].name
+					+ " : " + data2[1].comment);
 			getContentPane().add(textArea2);
 
 			// ganttChart
@@ -270,7 +317,13 @@ public class frmMakeChartHelp extends JFrame {
 			// Text
 			TextArea textArea3 = new TextArea();
 			textArea3.setBounds(230, 850, 520, 100);
-			textArea3.setText("교통 비 : " + moveCost(data3) + "\n" + "식 비 : " + eatCost(data3));
+			if (finish == "오후") {
+				textArea3.setText("교통 비 : " + moveCost(data3) + "\n" + "식 비 : " + eatCost(data3) + "\n" + data3[0].name
+						+ " : " + data3[0].comment + "\n" + data3[1].name + " : " + data3[1].comment);
+			} else if (finish == "오전") {
+				textArea3.setText("교통 비 : " + moveCost(data3) + "\n" + "식 비 : " + eatCost(data3) + "\n" + data3[0].name
+						+ " : " + data3[0].comment);
+			}
 			getContentPane().add(textArea3);
 
 			setBounds(100, 100, 800, 1050);
@@ -287,6 +340,11 @@ public class frmMakeChartHelp extends JFrame {
 
 		for (int i = 0; i < size; i++) {
 			spotName[i] = data[i].name;
+			for (int j = 0; j < i; j++) {
+				if (spotName[j] == data[i].name) {
+					spotName[i] = " " + data[i].name;
+				}
+			}
 		}
 
 		for (int i = 0; i < size; i++) {
@@ -330,7 +388,7 @@ public class frmMakeChartHelp extends JFrame {
 			if (reTime != 0) {
 				if (i == startArry[j]) {
 					temp1 = endArry[j] - startArry[j];
-					dataset.setValue(data[j].name + " " + startArry[j] + "~" + endArry[j], temp1);
+					dataset.setValue(data[j].name + "\n" + startArry[j] + "시-" + endArry[j] + "시", temp1);
 					i = endArry[j] - 1;
 					reTime -= temp1;
 					if (j < size - 1) {
@@ -381,4 +439,5 @@ public class frmMakeChartHelp extends JFrame {
 		}
 		return cost;
 	}
+
 }
