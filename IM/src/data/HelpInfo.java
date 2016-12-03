@@ -1,5 +1,7 @@
 package data;
 
+import DB.DBManager;
+
 public class HelpInfo extends Info{
 	public int order;
 	public int start;
@@ -14,7 +16,8 @@ public class HelpInfo extends Info{
 	public int moveCost;
 	public int sleepCost;
 	public int eatCost;
-	
+	public String comment;
+	DBManager db;
 	public HelpInfo(String date, String name, int order, String name1, String name2, String name3, String name4) {
 		super(date, name);
 		this.name1 = name1;
@@ -34,5 +37,6 @@ public class HelpInfo extends Info{
 		moveCost = 2400;
 		sleepCost = 30000;
 		eatCost = 12000;
+		comment = db.ReadComment(name);
 	}
 }

@@ -1,5 +1,8 @@
 package data;
 
+import DB.DBManager;
+import main.Main;
+
 public class SelfInfo extends Info{
 	public int start;
 	public int end; 
@@ -8,6 +11,8 @@ public class SelfInfo extends Info{
 	public int moveCost;
 	public int sleepCost;
 	public int eatCost;
+	public String comment;
+	DBManager db;
 	public SelfInfo(String date, String time, String name) {
 		super(date, time, name);
 		String split1[] = time.split("-");
@@ -19,6 +24,7 @@ public class SelfInfo extends Info{
 		moveCost = 2400;
 		sleepCost = 30000;
 		eatCost = 12000;
+		this.comment = db.ReadComment(name);
 	}
 
 }
