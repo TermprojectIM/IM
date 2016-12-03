@@ -96,7 +96,7 @@ public class DBManager {
 		return uid;
 	}
 
-	// 비번 까뭇을때
+	// 비번 찾기
 	public static String UserForgetPW(String id, String name) {
 		String query = "SELECT us_pw FROM tbl_user_list WHERE ID = ? AND Name = ?";
 		PreparedStatement pstmt = null;
@@ -176,7 +176,7 @@ public class DBManager {
 			rsmd = rs.getMetaData();
 
 			int i = 0;
-			// int colCnt = rsmd.getColumnCount(); 속성 개수 알기
+
 			rs.last();
 			int rowCnt = rs.getRow(); // 레코드 개수 알기
 			result = new String[rowCnt][4];
@@ -277,7 +277,7 @@ public class DBManager {
 			}
 
 			int rowCount = pstmt.executeUpdate();
-			// update는 입력된 row 개수를 리턴해줌
+			// update는 입력된 row 개수를 리턴
 			if (rowCount > 0) {
 				result = true; // 회원 정보 저장 테이블의 행이 1개 이상일 경우 true
 			}
@@ -574,7 +574,7 @@ public class DBManager {
 			rsmd = rs.getMetaData();
 
 			int i = 0;
-			// int colCnt = rsmd.getColumnCount(); 속성 개수 알기
+
 			rs.last();
 			int rowCnt = rs.getRow(); // 레코드 개수 알기
 			result = new String[rowCnt][2];
