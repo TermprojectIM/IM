@@ -18,7 +18,6 @@ public class DBManager {
 	public static boolean init(String ip, String dbName, String id, String password) {
 		boolean result = false;
 		try {
-			// Class.forName("com.mysql.jdbc.Driver");
 			Class.forName("org.gjt.mm.mysql.Driver");
 			conn = DriverManager.getConnection("jdbc:mysql://" + ip + ":3306/" + dbName + "?characterEncoding=UTF-8",
 					id, password);
@@ -123,6 +122,79 @@ public class DBManager {
 			rs.close();
 		} catch (SQLException ex) {
 			System.out.println("SQLException caught: " + ex.getMessage());
+		}
+
+		return result;
+	}
+
+	public static boolean InsertFollow(String pname, String content, String cost, String date) {
+		String query = "INSERT INTO tbl_follow VALUES(?, ?, ?, ?)";
+		PreparedStatement pstmt = null;
+		boolean result = false;
+
+		Object[] obj = new Object[] { pname, content, cost, date };
+
+		try {
+			pstmt = conn.prepareStatement(query);
+
+			for (int i = 0; i < obj.length; i++) {
+				pstmt.setObject(i + 1, obj[i]);
+			}
+
+			int rowCount = pstmt.executeUpdate();
+
+			if (rowCount > 0) {
+				result = true;
+			}
+
+			pstmt.close();
+		} catch (SQLException ex) {
+			System.out.println("SQLException caught: " + ex.getMessage());
+		}
+
+		return result;
+
+	}
+
+	// 읽기
+	public static String[][] ReadFollowInfo() {
+		String query = "SELECT * FROM tbl_follow";
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ResultSetMetaData rsmd = null;
+		String result[][] = null;
+
+		Object[] obj = new Object[] {};
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			for (int i = 0; i < obj.length; i++) {
+				pstmt.setObject(i + 1, obj[i]);
+			}
+			rs = pstmt.executeQuery();
+			rsmd = rs.getMetaData();
+
+			int i = 0;
+			// int colCnt = rsmd.getColumnCount(); 속성 개수 알기
+			rs.last();
+			int rowCnt = rs.getRow(); // 레코드 개수 알기
+			result = new String[rowCnt][4];
+			rs.beforeFirst();
+			while (rs.next()) {
+				result[i][0] = rs.getString(1);
+				result[i][1] = rs.getString(2);
+				result[i][2] = rs.getString(3);
+				result[i][3] = rs.getString(4);
+				i++;
+			}
+
+			pstmt.close();
+			rs.close();
+		} catch (SQLException ex) {
+			System.out.println("SQLException caught: " + ex.getMessage());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
 
 		return result;
@@ -240,7 +312,7 @@ public class DBManager {
 			int cnt = rsmd.getColumnCount();// 속성개수알기
 			rs.last();
 			int rowCnt = rs.getRow(); // 레코드 개수 알기
-			result = new String[rowCnt][2];
+			result = new String[rowCnt][4];
 			rs.beforeFirst();
 			while (rs.next()) {
 				result[i][0] = rs.getString(1);
@@ -255,7 +327,7 @@ public class DBManager {
 		} catch (SQLException ex) {
 			System.out.println("SQLException caught: " + ex.getMessage());
 		} catch (Exception e) {
-			System.out.println("sql말고 다른 오류 ㅅㅂ");
+			System.out.println(e.getMessage());
 		}
 
 		return result;
@@ -298,7 +370,7 @@ public class DBManager {
 		} catch (SQLException ex) {
 			System.out.println("SQLException caught: " + ex.getMessage());
 		} catch (Exception e) {
-			System.out.println("sql말고 다른 오류 ㅅㅂ");
+			System.out.println(e.getMessage());
 		}
 
 		return result;
@@ -326,7 +398,7 @@ public class DBManager {
 			int cnt = rsmd.getColumnCount();// 속성개수알기
 			rs.last();
 			int rowCnt = rs.getRow(); // 레코드 개수 알기
-			result = new String[rowCnt][2];
+			result = new String[rowCnt][4];
 			rs.beforeFirst();
 			while (rs.next()) {
 				result[i][0] = rs.getString(1);
@@ -341,51 +413,7 @@ public class DBManager {
 		} catch (SQLException ex) {
 			System.out.println("SQLException caught: " + ex.getMessage());
 		} catch (Exception e) {
-			System.out.println("sql말고 다른 오류 ㅅㅂ");
-		}
-
-		return result;
-	}
-	// Help 테이블 정보 읽기
-	public static String[][] ReadHelpInfo(String str) {
-		String query = "SELECT priority, name1, name2, name3, name4 FROM tbl_help WHERE position = ? and priority = ?";
-		Random random = new Random();
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String result[][] = null;
-		ResultSetMetaData rsmd = null;
-		
-		Object[] obj = new Object[] { str };
-		
-		try {
-			pstmt = conn.prepareStatement(query);
-			for (int i = 0; i < obj.length; i++) {
-				pstmt.setObject(i + 1, obj[i]);
-			}
-			pstmt.setObject(2, random.nextInt(2)+1);
-			rs = pstmt.executeQuery();
-			rsmd = rs.getMetaData();
-			int i = 0;
-			int cnt = rsmd.getColumnCount();// 속성개수알기
-			rs.last();
-			int rowCnt = rs.getRow(); // 레코드 개수 알기
-			result = new String[rowCnt][5];
-			rs.beforeFirst();
-			while (rs.next()) {
-				result[i][0] = String.valueOf(rs.getInt(1));
-				result[i][1] = rs.getString(2);
-				result[i][2] = rs.getString(3);
-				result[i][3] = rs.getString(4);
-				result[i][4] = rs.getString(5);
-				i++;
-			}
-
-			pstmt.close();
-			rs.close();
-		} catch (SQLException ex) {
-			System.out.println("SQLException caught: " + ex.getMessage());
-		} catch (Exception e) {
-			System.out.println("sql말고 다른 오류 ㅅㅂ");
+			System.out.println(e.getMessage());
 		}
 
 		return result;
@@ -413,7 +441,7 @@ public class DBManager {
 			int cnt = rsmd.getColumnCount();// 속성개수알기
 			rs.last();
 			int rowCnt = rs.getRow(); // 레코드 개수 알기
-			result = new String[rowCnt][2];
+			result = new String[rowCnt][4];
 			rs.beforeFirst();
 			while (rs.next()) {
 				result[i][0] = rs.getString(1);
@@ -422,13 +450,105 @@ public class DBManager {
 				result[i][3] = rs.getString(4);
 				i++;
 			}
+			pstmt.close();
+			rs.close();
+		} catch (SQLException ex) {
+			System.out.println("SQLException caught: " + ex.getMessage());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return result;
+	}
+
+	// Comment 읽기
+	public static String ReadComment(String str) {
+		String query = "SELECT content FROM tbl_self WHERE name = ?";
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String result = null;
+		ResultSetMetaData rsmd = null;
+
+		Object[] obj = new Object[] { str };
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			for (int i = 0; i < obj.length; i++) {
+				pstmt.setObject(i + 1, obj[i]);
+			}
+			rs = pstmt.executeQuery();
+			rsmd = rs.getMetaData();
+			int i = 0;
+			int cnt = rsmd.getColumnCount();// 속성개수알기
+			rs.last();
+			int rowCnt = rs.getRow(); // 레코드 개수 알기
+			result = new String();
+			rs.beforeFirst();
+			while (rs.next()) {
+				result = rs.getString(1);
+				i++;
+			}
+			pstmt.close();
+			rs.close();
+		} catch (SQLException ex) {
+			System.out.println("SQLException caught: " + ex.getMessage());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return result;
+	}
+
+	// Help 테이블 원하는 레코드만 읽기 //key를 부산, 대구 이런식으로 검색하게 하였음.
+	public static String[][] ReadHelpInfo(String str) {
+		String query = "SELECT priority,name1,name2,name3,name4 FROM tbl_help WHERE position = ? and priority = ?";
+		Random random = new Random();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String result[][] = null;
+		ResultSetMetaData rsmd = null;
+
+		Object[] obj = new Object[] { str };
+		int i, rowCnt;
+		try {
+
+			while (true) {
+				pstmt = conn.prepareStatement(query);
+				for (int j = 0; j < obj.length; j++) {
+					pstmt.setObject(j + 1, obj[j]);
+				}
+
+				pstmt.setObject(2, random.nextInt(10) + 1);
+				rs = pstmt.executeQuery();
+
+				rsmd = rs.getMetaData();
+				i = 0;
+				rs.last();
+				rowCnt = rs.getRow(); // 레코드 개수 알기
+				System.out.println("테스트" + rowCnt);
+				if (rowCnt == 0) {
+					continue;
+				} else
+					break;
+			}
+			result = new String[rowCnt][5];
+			rs.beforeFirst();
+			while (rs.next()) {
+				result[i][0] = rs.getString(1);
+				result[i][1] = rs.getString(2);
+				result[i][2] = rs.getString(3);
+				result[i][3] = rs.getString(4);
+				result[i][4] = rs.getString(5);
+				i++;
+			}
 
 			pstmt.close();
 			rs.close();
 		} catch (SQLException ex) {
 			System.out.println("SQLException caught: " + ex.getMessage());
 		} catch (Exception e) {
-			System.out.println("sql말고 다른 오류 ㅅㅂ");
+			System.out.println(e.getMessage());
 		}
 
 		return result;
@@ -470,7 +590,7 @@ public class DBManager {
 		} catch (SQLException ex) {
 			System.out.println("SQLException caught: " + ex.getMessage());
 		} catch (Exception e) {
-			System.out.println("sql말고 다른 오류 ㅅㅂ");
+			System.out.println(e.getMessage());
 		}
 
 		return result;
@@ -513,6 +633,39 @@ public class DBManager {
 		boolean result = false;
 
 		Object[] obj = new Object[] { title };
+		// obj에 name을 넣음
+		try {
+			pstmt = conn.prepareStatement(query);
+			// Connection의 prepareStatement 메소드를 이용하여 쿼리 실행 객체 생성
+			for (int i = 0; i < obj.length; i++) {
+				// obj에 name을 넣으므로써 obj.length=1
+				pstmt.setObject(i + 1, obj[i]);
+				// obj에서 받은 배열 값을 i+1에 set
+			}
+
+			int rowCount = pstmt.executeUpdate();
+			// update는 입력된 row 개수를 리턴해줌
+			if (rowCount > 0) {
+				result = true;
+				// tbl_self 테이블의 행이 1개 이상일 경우 true
+			}
+
+			pstmt.close(); // 연결된 상태를 해제하고 접속을 종료
+		} catch (SQLException ex) {
+			System.out.println("SQLException caught: " + ex.getMessage());
+		}
+
+		return result;
+	}
+
+	// Follow 테이블에서 정보 삭제
+	public static boolean RmFollowInfo(String pname) {
+		String query = "DELETE FROM tbl_follow WHERE pname = ?";
+		// name에 따라 삭제하는 쿼리문
+		PreparedStatement pstmt = null; // 질의문 수행을 위한 기본 객체
+		boolean result = false;
+
+		Object[] obj = new Object[] { pname };
 		// obj에 name을 넣음
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -594,7 +747,6 @@ public class DBManager {
 				result = true;
 				// tbl_user_list 테이블의 행이 1개 이상일 경우 true
 			}
-
 			pstmt.close(); // 연결된 상태를 해제하고 접속을 종료
 		} catch (SQLException ex) {
 			System.out.println("SQLException caught: " + ex.getMessage());
