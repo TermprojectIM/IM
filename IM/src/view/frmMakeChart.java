@@ -28,7 +28,6 @@ public class frmMakeChart extends JFrame {
 
 	public frmMakeChart(SelfInfo data[], String day) {
 		setVisible(true);
-		//setBounds(100, 100, 800, 1000);
 		setLayout(null);
 
 		int size = data.length;
@@ -110,7 +109,11 @@ public class frmMakeChart extends JFrame {
 			// Text
 			TextArea textArea1 = new TextArea();
 			textArea1.setBounds(230, 300, 520, 100);
-			textArea1.setText("교통 비 : " + moveCost(data1) + "\n" + "식 비 : " + eatCost(data1));
+			textArea1.setText("교통 비 : " + moveCost(data1) + "\n" + "식 비 : " + eatCost(data1) + "\n");
+			for (int i = 0; i < data1.length; i++) {
+				textArea1.append(data1[i].name + " : " + data1[i].comment + "\n" + "시간 : " + data1[i].start + "시-"
+						+ data1[i].end + "시" + "\n");
+			}
 			getContentPane().add(textArea1);
 
 			setBounds(100, 100, 800, 500);
@@ -136,7 +139,12 @@ public class frmMakeChart extends JFrame {
 			// Text
 			TextArea textArea1 = new TextArea();
 			textArea1.setBounds(230, 300, 520, 100);
-			textArea1.setText("교통 비 : " + moveCost(data1) + "\n" + "식 비 : " + eatCost(data1)+"\n"+"숙박 비 : " + data1[0].sleepCost);
+			textArea1.setText("교통 비 : " + moveCost(data1) + "\n" + "식 비 : " + eatCost(data1) + "\n" + "숙박 비 : "
+					+ data1[0].sleepCost + "\n");
+			for (int i = 0; i < data1.length; i++) {
+				textArea1.append(data1[i].name + " : " + data1[i].comment + "\n" + "시간 : " + data1[i].start + "시-"
+						+ data1[i].end + "시" + "\n");
+			}
 			getContentPane().add(textArea1);
 
 			// ganttChart
@@ -154,7 +162,11 @@ public class frmMakeChart extends JFrame {
 			// Text
 			TextArea textArea2 = new TextArea();
 			textArea2.setBounds(230, 650, 520, 100);
-			textArea2.setText("교통 비 : " + moveCost(data2) + "\n" + "식 비 : " + eatCost(data2)+"\n"+"숙박 비 : " + data2[0].sleepCost);
+			textArea2.setText("교통 비 : " + moveCost(data2) + "\n" + "식 비 : " + eatCost(data2) + "\n");
+			for (int i = 0; i < data2.length; i++) {
+				textArea2.append(data2[i].name + " : " + data2[i].comment + "\n" + "시간 : " + data2[i].start + "시-"
+						+ data2[i].end + "시" + "\n");
+			}
 			getContentPane().add(textArea2);
 
 			setBounds(100, 100, 800, 850);
@@ -180,7 +192,12 @@ public class frmMakeChart extends JFrame {
 			// Text
 			TextArea textArea1 = new TextArea();
 			textArea1.setBounds(230, 250, 520, 100);
-			textArea1.setText("교통 비 : " + moveCost(data1) + "\n" + "식 비 : " + eatCost(data1)+"\n"+"숙박 비 : " + data1[0].sleepCost);
+			textArea1.setText("교통 비 : " + moveCost(data1) + "\n" + "식 비 : " + eatCost(data1) + "\n" + "숙박 비 : "
+					+ data1[0].sleepCost + "\n");
+			for (int i = 0; i < data1.length; i++) {
+				textArea1.append(data1[i].name + " : " + data1[i].comment + "\n" + "시간 : " + data1[i].start + "시-"
+						+ data1[i].end + "시" + "\n");
+			}
 			getContentPane().add(textArea1);
 
 			// ganttChart
@@ -198,7 +215,12 @@ public class frmMakeChart extends JFrame {
 			// Text
 			TextArea textArea2 = new TextArea();
 			textArea2.setBounds(230, 550, 520, 100);
-			textArea2.setText("교통 비 : " + moveCost(data2) + "\n" + "식 비 : " + eatCost(data2)+"\n"+"숙박 비 : " + data2[0].sleepCost);
+			textArea2.setText("교통 비 : " + moveCost(data2) + "\n" + "식 비 : " + eatCost(data2) + "\n" + "숙박 비 : "
+					+ data2[0].sleepCost + "\n");
+			for (int i = 0; i < data2.length; i++) {
+				textArea2.append(data2[i].name + " : " + data2[i].comment + "\n" + "시간 : " + data2[i].start + "시-"
+						+ data2[i].end + "시" + "\n");
+			}
 			getContentPane().add(textArea2);
 
 			// ganttChart
@@ -216,7 +238,11 @@ public class frmMakeChart extends JFrame {
 			// Text
 			TextArea textArea3 = new TextArea();
 			textArea3.setBounds(230, 850, 520, 100);
-			textArea3.setText("교통 비 : " + moveCost(data3) + "\n" + "식 비 : " + eatCost(data3));
+			textArea3.setText("교통 비 : " + moveCost(data3) + "\n" + "식 비 : " + eatCost(data3) + "\n");
+			for (int i = 0; i < data3.length; i++) {
+				textArea3.append(data3[i].name + " : " + data3[i].comment + "\n" + "시간 : " + data3[i].start + "시-"
+						+ data3[i].end + "시" + "\n");
+			}
 			getContentPane().add(textArea3);
 
 			setBounds(100, 100, 800, 1050);
@@ -276,7 +302,7 @@ public class frmMakeChart extends JFrame {
 			if (reTime != 0) {
 				if (i == startArry[j]) {
 					temp1 = endArry[j] - startArry[j];
-					dataset.setValue(data[j].name + " " + startArry[j] + "~" + endArry[j], temp1);
+					dataset.setValue(data[j].name + "\n" + startArry[j] + "시-" + endArry[j] + "시", temp1);
 					i = endArry[j] - 1;
 					reTime -= temp1;
 					if (j < size - 1) {
@@ -325,6 +351,11 @@ public class frmMakeChart extends JFrame {
 		for (int i = 0; i < size; i++) {
 			cost += data[i].eatCost;
 		}
+
+		if (cost > 50000) {
+			cost = 50000;
+		}
+
 		return cost;
 	}
 }
