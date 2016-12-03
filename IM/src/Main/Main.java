@@ -60,6 +60,10 @@ public class Main {
 		return db.ReadSelfInfo(str);
 	}
 	
+	public String readComment(String str){
+		return db.ReadComment(str);
+	}
+	
 	public String[][] readSelfInfo(){
 		return db.ReadSelfInfo();
 	}
@@ -84,12 +88,20 @@ public class Main {
 		return db.RmMypageInfo(title);
 	}
 	
+	public boolean RmFollowInfo(String pname){
+		return db.RmFollowInfo(pname);
+	}
+	
 	public boolean insertSelfInfo(String area,String position, String name, String content){
 		return db.InsertSelfInfo(area, position, name, content);
 	}
 	
 	public boolean insertMypageInfo(String title,String content){
 		return db.InsertMypageInfo(title, content);
+	}
+	
+	public boolean insertFollowInfo(String pname,String content, String cost, String date){
+		return db.InsertFollow(pname, content, cost, date);
 	}
 	
 	public boolean UpdateUserRank(String id,String rank){
@@ -115,6 +127,10 @@ public class Main {
 		//전창 안보이게하고  새창띄우기
 		fm = new frmMenu(id);
 		fm.setMain(this);
+	}
+	
+	public String[][] ReadFollowInfo(){
+		return db.ReadFollowInfo();
 	}
 	
 	public void showFrameSignup(){
