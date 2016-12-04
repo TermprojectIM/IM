@@ -48,7 +48,7 @@ public class frmRgtInfo extends JFrame {
 	        	  System.out.println("등록 선택됨");
 	        	  String a= area.getText(); area.setText(""); String b= position.getText(); position.setText("");
 	        	  String c= name.getText(); name.setText(""); String d= content.getText(); content.setText("");
-	        	  ///////// 디비 쿼리문 날릴때 저 데이터들을 전달해주자
+
 	        	  if(main.insertSelfInfo(a, b, c, d))
 	        		  JOptionPane.showMessageDialog(null, "데이터 삽입 성공 하였습니다.");
 	        	  else
@@ -88,8 +88,4 @@ public class frmRgtInfo extends JFrame {
         return layeredPane;
     }	
 	
-//	public static void main(String[] args){
-//		new frmRgtInfo();
-//		
-//	}
 }

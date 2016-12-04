@@ -98,8 +98,4 @@ public class frmAdminMenu extends JFrame {
 		return layeredPane;
 	}
 
-//	 public static void main(String[] args) {
-//	 new frmAdminMenu();
-//	 }
-//	
 }

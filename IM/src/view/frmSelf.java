@@ -44,7 +44,6 @@ public class frmSelf extends JFrame {
 		
 		setPanel(layeredPane).setBounds(0,0,1040,800);
 		
-		//���
 		JPanel backGround = new PanImgload("img/op3.png");
 		setPanel(backGround).setBounds(0, 0, 1040, 800);
 		search = new JTextField(25);
@@ -53,19 +52,12 @@ public class frmSelf extends JFrame {
 		search.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		search.setForeground(Color.darkGray);
 
-		String[] items = {"당일 여행", "1박 2일", "2박 3일", "3박 4일", "4박 5일", "5박 6일", "장기 여행"};
+		String[] items = {"당일 여행", "1박 2일", "2박 3일"};
 		box = new JComboBox<String>(items);
 		box.setSelectedIndex(0);
 		box.setBounds(530, 190, 230,50);
 		box.setVisible(true);
 		
-//		box.addActionListener(new ActionListener(){
-//            public void actionPerformed(ActionEvent e) {
-//            	String str = (String)box.getSelectedItem();
-//            	System.out.println(str + "선택 되었습니다.");
-//            }
-//        });
-//		
 		
 		btnMake = new JButton();
 		btnMake.setBounds(770, 190, 200, 50); btnHome.setBounds(960,12,45,45);
@@ -124,10 +116,6 @@ public class frmSelf extends JFrame {
         return layeredPane;
     }	
 
-
-//	public static void main(String[] args) {
-//		new frmSelf();
-//	}
 }
 
 

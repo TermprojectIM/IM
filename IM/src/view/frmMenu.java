@@ -126,8 +126,7 @@ public class frmMenu extends JFrame implements MouseListener{
 		return panel;
 	}
 
-	// 다중 parameter로 잡았음
-	// 코드중복을줄이기위해 안써도 상관없음 ㅋㅋ
+	// 다중 parameter
 	public JLayeredPane setJLayered(Component... components) {
 		int i = 0;
 		for (Component component : components)
@@ -140,7 +139,6 @@ public class frmMenu extends JFrame implements MouseListener{
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
 		switch(((JButton) e.getSource()).getText()) { 
 		   case "1" : follow.setVisible(true); break; 
 		   case "2" : help.setVisible(true);; break; 

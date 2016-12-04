@@ -38,29 +38,20 @@ public class frmMap extends JPanel{
             	str = text.getText();
     			if(str.equals("시작")){
     				img[0] = img[1];
-    			} else if (str.equals("수성못")) {
+    			} else if (str.equals("서울")) {
     				img[0] = img[2];
-    			} else if (str.equals("여수")) {
+    			} else if (str.equals("대구")) {
     				img[0] = img[3];
-    			} else if(str.equals("��⵵")){
+    			} else if(str.equals("부산")){
     				img[0] = img[4];
-    			} else if (str.equals("����Ư����")) {
-    				img[0] = img[4];
-    			} else if(str.equals("����")){
+    			} else if (str.equals("여수")) {
     				img[0] = img[5];
-    			} else if (str.equals("�λ�")) {
+    			} else if(str.equals("강릉")){
     				img[0] = img[6];
-    			} else if(str.equals("�뱸")){
+    			} else if (str.equals("경주")) {
     				img[0] = img[7];
-    			} else if (str.equals("����")) {
-    				img[0] = img[8];
-    			} else if(str.equals("����")){
-    				img[0] = img[9];
-    			} else if(str.equals("����")){
-    				img[0] = img[10];
-    			} else if(str.equals("����")){
-    				img[0] = img[11];
-    			}else{
+    			}  
+    			else{
     				str="오류";
     			}
     			repaint();
@@ -78,17 +69,13 @@ public class frmMap extends JPanel{
             }
         });
 		img[1] = Toolkit.getDefaultToolkit().createImage("img/all10,6.5.png");
-		img[2] = Toolkit.getDefaultToolkit().createImage("img/경상도 - 대구(최).png");
-		img[3] = Toolkit.getDefaultToolkit().createImage("img/충청도여수.png");
-		img[4] = Toolkit.getDefaultToolkit().createImage("img/������(��).png");
-		img[5] = Toolkit.getDefaultToolkit().createImage("img/��� - ����(��).png");
-		img[6] = Toolkit.getDefaultToolkit().createImage("img/��� - �λ�(��).png");
-		img[7] = Toolkit.getDefaultToolkit().createImage("img/��� - �뱸(��).png");
-		img[8] = Toolkit.getDefaultToolkit().createImage("img/������ - ����(��).png");
-		img[9] = Toolkit.getDefaultToolkit().createImage("img/����(��).png");
-		img[10] = Toolkit.getDefaultToolkit().createImage("img/���� - ����(��).png");
-		img[11] = Toolkit.getDefaultToolkit().createImage("img/������ - ����(��).png");
-		img[0] = img[1]; // �̹��� 0���� �ʱ��̹����� 1�����ٰ� �ּҰ��� �־��ش�?
+		img[2] = Toolkit.getDefaultToolkit().createImage("img/서울경기 - 서울(최).png");
+		img[3] = Toolkit.getDefaultToolkit().createImage("img/경상도 - 대구(최).png");
+		img[4] = Toolkit.getDefaultToolkit().createImage("img/경상도 - 부산(최).png");
+		img[5] = Toolkit.getDefaultToolkit().createImage("img/전라도 - 여수(최).png");
+		img[6] = Toolkit.getDefaultToolkit().createImage("img/강원도 - 강릉(최).png");
+		img[7] = Toolkit.getDefaultToolkit().createImage("img/경상도 - 경주(최).png");
+		img[0] = img[1]; 
 	}
 	
 	public String getText(){

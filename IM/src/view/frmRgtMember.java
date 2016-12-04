@@ -48,7 +48,7 @@ public class frmRgtMember extends JFrame {
 	        	  System.out.println("등록 선택됨");
 	        	  String a= id.getText(); id.setText(""); String b= rank.getText(); rank.setText("");
 
-	        	  ///////// 디비 쿼리문 날릴때 저 데이터들을 전달해주자
+
 	        	  if(main.UpdateUserRank(a, b))
 	        		  JOptionPane.showMessageDialog(null, "등급 등록 성공하였습니다.");
 	        	  else
@@ -86,9 +86,5 @@ public class frmRgtMember extends JFrame {
             layeredPane.add(component, new Integer(i++));
         return layeredPane;
     }	
-	
-//	public static void main(String[] args){
-//		new frmRgtMember();
-//		
-//	}
+
 }

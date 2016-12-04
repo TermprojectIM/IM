@@ -37,7 +37,6 @@ public class frmEtc extends Frame implements ActionListener, WindowListener, Lis
    private JLabel list_lb = new JLabel("글목록");
    private JLabel read_lb = new JLabel("글보기");
    private JList list_li = new JList(new DefaultListModel());
-   //private JList list_li = new JList(10, false);
    private JTextArea read_ta = new JTextArea();
    private JButton write_bt = new JButton("글쓰기");
    private JButton refresh_bt = new JButton("새로고침");
@@ -134,7 +133,6 @@ public class frmEtc extends Frame implements ActionListener, WindowListener, Lis
       refresh_bt.addActionListener(this);
       end_bt.addActionListener(this);
       list_li.addListSelectionListener(this); // 글읽기
-      //list_li.addActionListener(this);
       edit_bt.addActionListener(this);
       delete_bt.addActionListener(this);
    }
@@ -197,10 +195,8 @@ public class frmEtc extends Frame implements ActionListener, WindowListener, Lis
          String[] JList = dir.list();
          listmodel= (DefaultListModel)list_li.getModel();
          listmodel.removeAllElements();
-         //list_li.clear();
          if (JList != null) {
             for (int i = 0; i < JList.length; i++) {
-               //list_li.add(i + 1 + " : " + JList[i]);
                listmodel.addElement(i + 1 + " : " + JList[i]);
             }
             list_li.setModel(listmodel);
@@ -241,10 +237,8 @@ public class frmEtc extends Frame implements ActionListener, WindowListener, Lis
          String[] JList = dir.list();
          listmodel= (DefaultListModel)list_li.getModel();
          listmodel.removeAllElements();
-         //list_li.clear();
          if (JList != null) {
             for (int i = 0; i < JList.length; i++) {
-               //list_li.add(i + 1 + " : " + JList[i]);
                listmodel.addElement(i + 1 + " : " + JList[i]);
             }
             list_li.setModel(listmodel);
@@ -269,12 +263,10 @@ public class frmEtc extends Frame implements ActionListener, WindowListener, Lis
       if (e.getSource() == this) {
          File dir = new File("boardData");
          String[] JList = dir.list();
-//         list_li.clear();
          listmodel= (DefaultListModel)list_li.getModel();
          listmodel.removeAllElements();
          if (JList != null) {
             for (int i = 0; i < JList.length; i++) {
-               //list_li.add(i + 1 + " : " + JList[i]);
                listmodel.addElement(i + 1 + " : " + JList[i]);
             }
             list_li.setModel(listmodel);
@@ -293,10 +285,8 @@ public class frmEtc extends Frame implements ActionListener, WindowListener, Lis
 
    @Override
    public void valueChanged(ListSelectionEvent e) {
-      // TODO Auto-generated method stub
-      if (e.getValueIsAdjusting()) {//This line prevents double events
+      if (e.getValueIsAdjusting()) {
          String str = (String) list_li.getSelectedValue();
-         //String data = (String) list_li.getSelectedItem();
          str = str.substring(str.indexOf(":") + 1).trim();
          File d = new File("boardData");
          File f = new File(d, str);
@@ -319,13 +309,7 @@ public class frmEtc extends Frame implements ActionListener, WindowListener, Lis
          read_ta.append("작성일 : " + str.substring(str.indexOf("(") + 1, str.lastIndexOf(")")) + "\n\n");
          read_ta.append("첨부파일 : " + a + "\n\n");
          read_ta.append("내용 : " + c);
-         ///////////////////////////////////////////////////////////////////
+
       }      
    }
-   
-   // public static void main(String args[]) {
-   // 
-   // new frmEtc();
-   //}
-   
 }

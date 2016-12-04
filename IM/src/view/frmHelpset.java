@@ -38,8 +38,7 @@ public class frmHelpset extends JFrame {
 		setPanel(layeredPane).setBounds(0,0,730,533);
 		JPanel backGround = new PanImgload("img/helpset.png");
 		setPanel(backGround).setBounds(0, 0, 730, 533);
-		
-		String[] item1 = {"당일 여행", "1박 2일", "2박 3일", "3박 4일", "4박 5일", "5박 6일", "장기 여행"};
+		String[] item1 = {"당일 여행", "1박 2일", "2박 3일"};
 		String[] item2 = {"오전", "오후"};
 		date = new JComboBox<String>(item1);
 		date.setSelectedIndex(0);

@@ -37,6 +37,7 @@ public class frmMyPage extends JFrame implements ActionListener, MouseListener{
 	private JButton btnMyGrade = new JButton(new ImageIcon("img/grade.png"));
 	private JButton btnMyList = new JButton(new ImageIcon("img/epilogue.png"));
 	private JButton btnHome = new JButton(new ImageIcon("img/home.png"));
+	private JButton btnBasket = new JButton(new ImageIcon("img/basket.png"));
 	private JTextField userInfo = new JTextField();
 	private JTextField grade = new JTextField();
 	private JTextField epil = new JTextField();
@@ -48,6 +49,7 @@ public class frmMyPage extends JFrame implements ActionListener, MouseListener{
 	DefaultTableModel model;
 	JScrollPane scrollpane;
 	JTable epilTable;
+	JTable mylistTable;
 	JButton btnAdd,btnDel,btnSave;
 	String result[][]=null;
 	String id;
@@ -78,11 +80,11 @@ public class frmMyPage extends JFrame implements ActionListener, MouseListener{
 		//버튼 설정 부분
 		Color color = new Color(0xFF0000,true);
 		btnMyList.setBounds(550, 100, 85, 85); btnMyGrade.setBounds(350, 100, 85, 85);
-		btnUserInformation.setBounds(150, 100, 85, 85); btnHome.setBounds(745,10,45,45);
+		btnUserInformation.setBounds(150, 100, 85, 85); btnHome.setBounds(745,10,45,45); btnBasket.setBounds(694,10,45,45);
 		btnUserInformation.setText("1"); btnMyGrade.setText("2"); btnMyList.setText("3"); 
 		btnUserInformation.setForeground(color); btnMyGrade.setForeground(color); btnMyList.setForeground(color);
 		
- 		btnBlind(btnUserInformation); btnBlind(btnMyGrade); btnBlind(btnMyList); btnBlind(btnHome);
+ 		btnBlind(btnUserInformation); btnBlind(btnMyGrade); btnBlind(btnMyList); btnBlind(btnHome); btnBlind(btnBasket);
 
  		//등급위한 이미지 설정
  		image[0] = new PanImgload("img/unrank.png");
@@ -93,7 +95,7 @@ public class frmMyPage extends JFrame implements ActionListener, MouseListener{
  		//패널
  		jp = new JPanel(); jp.setBackground(Color.white);
  		start();//이벤트
-		add(setJLayered(jpBackGround,btnHome,btnMyList,btnMyGrade,btnUserInformation,userInfo,grade,epil, jp));
+		add(setJLayered(jpBackGround,btnHome,btnMyList,btnMyGrade,btnUserInformation,userInfo,grade,epil, jp,btnBasket));
 		
 		//setPanelArea((JPanel) u_panel());
 		setVisible(true);
@@ -155,6 +157,7 @@ public class frmMyPage extends JFrame implements ActionListener, MouseListener{
 		String attribute[] = {"Title","Content"};
 		model = new DefaultTableModel(attribute,0);
 		epilTable = new JTable(model);
+		
 		scrollpane = new JScrollPane(epilTable);
 		scrollpane.setBounds(0, 30, 705, 200);
 		//디비에서 읽어서 보여주기
@@ -239,6 +242,42 @@ public class frmMyPage extends JFrame implements ActionListener, MouseListener{
 		panel.add(label);panel.add(scrollpane);panel.add(btnAdd);panel.add(btnDel);panel.add(btnSave);
 		return panel;
 	}
+	
+	public Container b_panel(){
+		JPanel panel = new JPanel(); panel.setLayout(null);
+		panel.setBackground(new Color(0xeeeeee,false)); panel.setBounds(50, 230, 705, 300);
+		JLabel label = new JLabel("장바구니 목록"); label.setFont(new Font("배달의민족 한나", Font.BOLD,15));
+		label.setBounds(300,-10,100,50);
+		JButton btn_delete = new JButton(new ImageIcon("img/del.png")); //btnBlind(btn_delete);
+		btn_delete.setBounds(0,240,704,60);
+		String attribute[] = {"Pname","Content","Cost","Date"};
+		model = new DefaultTableModel(attribute,0);
+		mylistTable = new JTable(model);
+		scrollpane = new JScrollPane(mylistTable);
+		scrollpane.setBounds(0,30,705,210);
+		//디비에서 읽어서 보여주기
+		result = main.ReadFollowInfo();
+		cnt = result.length;
+		for(int i=0;i<cnt;i++){
+			model.addRow(result[i]);
+		}
+		mylistTable.setModel(model);
+		btn_delete.addActionListener(new ActionListener() {
+	          public void actionPerformed(ActionEvent e) {
+	        	  System.out.println((String)model.getValueAt(mylistTable.getSelectedRow(),0));
+	        	  boolean check = main.RmFollowInfo((String)model.getValueAt(mylistTable.getSelectedRow(),0));
+	        	  System.out.println("성공여부테스트 : " + check);
+	        	  if(check){
+	        		  JOptionPane.showMessageDialog(null, "예약항목이 삭제되었습니다.");
+	        		  setPanelArea((JPanel)b_panel());
+	        	  }else{
+	        		  JOptionPane.showMessageDialog(null, "삭제 실패");
+	        	  }
+	        }
+	      });
+		panel.add(label); panel.add(scrollpane); panel.add(btn_delete);
+		return panel;
+	}
 
 	public void start() {
 		btnUserInformation.addActionListener(this);
@@ -248,6 +287,7 @@ public class frmMyPage extends JFrame implements ActionListener, MouseListener{
 		btnMyGrade.addMouseListener(this);
 		btnMyList.addMouseListener(this);
 		btnHome.addActionListener(this);
+		btnBasket.addActionListener(this);
 	}
 
 	@Override
@@ -261,6 +301,9 @@ public class frmMyPage extends JFrame implements ActionListener, MouseListener{
 		} else if (e.getSource() == btnMyList) {
 			JOptionPane.showMessageDialog(null, "나만의 후기 클릭.");
 			setPanelArea((JPanel)e_panel());
+		} else if (e.getSource() == btnBasket) {
+			JOptionPane.showMessageDialog(null, "장바구니 클릭.");
+			setPanelArea((JPanel)b_panel());
 		} else if (e.getSource() == btnHome){
 			dispose();
 			main.showFrameMain();
@@ -308,8 +351,5 @@ public class frmMyPage extends JFrame implements ActionListener, MouseListener{
 	}
 	public void mousePressed(MouseEvent e) {}
 	public void mouseReleased(MouseEvent e) {}
-	
-//	public static void main(String [] args){
-//		new frmMyPage();
-//	}
+
 }

@@ -106,7 +106,7 @@ public class frmSignup extends JFrame {
           			  }else{
           				JOptionPane.showMessageDialog(null, "회원가입 실패입니다.");
           			  }
-          		  }else{ //���̵� �ߺ�
+          		  }else{
           			JOptionPane.showMessageDialog(null, "아이디 중복입니다.");
           		  }
       		  }else{
@@ -144,7 +144,6 @@ public class frmSignup extends JFrame {
    }
    
    //다중 parameter로 잡았음
-   //코드중복을줄이기위해 안써도 상관없음 ㅋㅋ
    public JLayeredPane setJLayered(Component...components){
         int i = 0;
         for (Component component : components)

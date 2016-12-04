@@ -103,8 +103,7 @@ public class frmSelfmake extends JFrame {
 				SelfInfo[] data = new SelfInfo[model.getRowCount()];
 
 				for (int i = 0; i < model.getRowCount(); i++) {
-					data[i] = new SelfInfo((String) model.getValueAt(i, 0), (String) model.getValueAt(i, 1),
-							(String) model.getValueAt(i, 2));
+					data[i] = new SelfInfo((String) model.getValueAt(i, 0), (String) model.getValueAt(i, 1), (String) model.getValueAt(i, 2));
 				}
 
 				frmMakeChart fmc = new frmMakeChart(data, day);

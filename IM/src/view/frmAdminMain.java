@@ -54,12 +54,7 @@ public class frmAdminMain extends JFrame{
 				fam = new frmAdminMenu(2,main);
 			}	      
 		});
-		
-		
-		
-		
-		
-		
+
 		add(setJLayered(backGround,btnRgt,btnRm));
 		setVisible(true);
 		
@@ -83,9 +78,5 @@ public class frmAdminMain extends JFrame{
             layeredPane.add(component, new Integer(i++));
         return layeredPane;
     }	
-	
-//	public static void main(String[] args) {
-//		new frmAdminMain();
-//	}
 	
 }
