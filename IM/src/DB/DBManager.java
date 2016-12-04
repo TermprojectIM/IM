@@ -19,8 +19,7 @@ public class DBManager {
 		boolean result = false;
 		try {
 			Class.forName("org.gjt.mm.mysql.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://" + ip + ":3306/" + dbName + "?characterEncoding=UTF-8",
-					id, password);
+			conn = DriverManager.getConnection("jdbc:mysql://" + ip + ":3306/" + dbName+"?autoReconnect=true&useSSL=false&characterEncoding=UTF-8", id, password);
 			result = true;
 		} catch (ClassNotFoundException ex) {
 			System.out.println("Couldn't load database driver: " + ex.getMessage());
@@ -97,35 +96,35 @@ public class DBManager {
 	}
 
 	// 비번 찾기
-	public static String UserForgetPW(String id, String name) {
-		String query = "SELECT us_pw FROM tbl_user_list WHERE ID = ? AND Name = ?";
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String result = null;
-
-		Object[] obj = new Object[] { id, name };
-
-		try {
-			pstmt = conn.prepareStatement(query);
-
-			for (int i = 0; i < obj.length; i++) {
-				pstmt.setObject(i + 1, obj[i]);
-			}
-
-			rs = pstmt.executeQuery();
-
-			if (rs.next()) {
-				result = rs.getString(1);
-			}
-
-			pstmt.close();
-			rs.close();
-		} catch (SQLException ex) {
-			System.out.println("SQLException caught: " + ex.getMessage());
-		}
-
-		return result;
-	}
+	 public static String UserForgetPW(String id, String name) {
+	      String query = "SELECT Password FROM tbl_user_list WHERE ID = ? AND Name = ?";
+	      PreparedStatement pstmt = null;
+	      ResultSet rs = null;
+	      String result = null;
+	      
+	      Object[] obj = new Object[] { id, name };
+	      
+	      try {
+	         pstmt = conn.prepareStatement(query);
+	         
+	         for(int i=0; i<obj.length; i++) {
+	            pstmt.setObject(i + 1, obj[i]);
+	         }
+	         
+	         rs = pstmt.executeQuery(); 
+	         
+	         if(rs.next()) {
+	            result = rs.getString(1);
+	         }
+	         
+	         pstmt.close();
+	         rs.close();
+	      } catch(SQLException ex) {
+	         System.out.println("SQLException caught: " + ex.getMessage());
+	      }
+	      
+	      return result;
+	   }
 
 	public static boolean InsertFollow(String pname, String content, String cost, String date) {
 		String query = "INSERT INTO tbl_follow VALUES(?, ?, ?, ?)";
